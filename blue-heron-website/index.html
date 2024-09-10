@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon">
+  <title>Home | Blue Heron</title>
+  <link rel="stylesheet" href="./reset.css">
+  <link rel="stylesheet" href="./globalStyles.css">
+  <link rel="stylesheet" href="./components.css">
+  <!-- aos library css  -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <!-- Add your custom css -->
+  <link rel="stylesheet" href="./home.css">
+</head>
+
+<body>
+  <!-- Nav Section -->
+  <div class="nav">
+    <div class="container">
+      <div class="nav__wrapper">
+        <a href="./index.html" class="logo" >
+          <img src="./images/logo.jpeg" style="width: 75px; height: 75px; border-radius: 50%;" alt="Blue Heron">
+        </a>
+        <nav>
+          <div class="nav__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="feather feather-menu">
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+          </div>
+          <div class="nav__bgOverlay"></div>
+          <ul class="nav__list">
+            <div class="nav__close">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="feather feather-x">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </div>
+            <div class="nav__list__wrapper">
+
+              <li><a class="nav__link" href="./index.html">Home</a></li>
+              <li><a class="nav__link" href="./menu.html">Menu</a></li>
+              <li><a class="nav__link" href="./about.html">About</a></li>
+            </div>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <!-- End Nav Section -->
+  <!-- Hero Section -->
+  <section id="hero">
+    <div class="container">
+      <div class="hero__wrapper">
+        <div class="hero__left" data-aos="fade-left">
+          <div class="hero__left__wrapper">
+
+            <h1 class="hero__heading">The flavor of tradition</h1>
+            <p class="hero__info">
+              Enjoy a delightful assortment of sandwiches, freshly brewed coffee, and savory soup at Seattle's coziest brunch spot. 
+            </p>
+            <div class="button__wrapper">
+              <a href="./menu.html" class="btn primary-btn">Explore Menu</a>
+            </div>
+          </div>
+        </div>
+        <div class="hero__right" data-aos="fade-right">
+          <div class="img-container">
+            <img src="./images/front-building-1.jpg">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Hero Section -->
+  <!-- Store Info Section -->
+  <section id="storeInfo" data-aos="fade-up">
+    <div class="container">
+      <div class="storeInfo__wrapper">
+        <div class="storeInfo__item">
+          <div class="storeInfo__icon">
+            <img src="./images/wall-clock-icon.svg" alt="clock icon">
+          </div>
+          <h3 class="storeInfo__title">
+            7 AM - 3 PM
+          </h3>
+          <p class="storeInfo__text">
+            Only on Weekdays
+          </p>
+        </div>
+        <div class="storeInfo__item">
+          <a class="storeInfo__icon" href="https://www.google.com/maps?cshid=1719967823451817&rlz=1C5CHFA_enUS1038US1039&lqi=Cg90aGUgYmx1ZSBoZXJvblxIrqTJ9eaAgIAIWhwQABABEAIYABgBGAIiDnRoZSBibHVlIGhlcm9ukgENc2FuZHdpY2hfc2hvcJoBI0NoWkRTVWhOTUc5blMwVkpRMEZuU1VSU09HUjVUa05uRUFFqgFKEAEqEiIOdGhlIGJsdWUgaGVyb24oADIeEAEiGtI3QHXlN5KtLBpdFAg7EA0hzLs6Fa9cFChMMhIQAiIOdGhlIGJsdWUgaGVyb27gAQA&vet=12ahUKEwiJoLWm04mHAxX7po4IHQ3HD-MQ8UF6BAgfEAI..i&lei=KKCEZonsC_vNuvQPjY6_mA4&cs=1&um=1&ie=UTF-8&fb=1&gl=us&sa=X&geocode=KXHfbBSWFZBUMTzjpQ4FtXXE&daddr=4001+Gilman+Ave+W+%2327,+Seattle,+WA+98199" target="_blank">
+            <img src="./images/address-icon.svg" alt="clock icon">
+          </a>
+          <h3 class="storeInfo__title">
+            Seattle, WA 
+          </h3>
+          <p class="storeInfo__text">
+            4001 Gilman Ave W #27
+          </p>
+        </div>
+        <div class="storeInfo__item">
+          <a class="storeInfo__icon" href="tel:+12062852171">
+            <img src="./images/phone-icon.svg" alt="clock icon">
+          </a>
+          <h3 class="storeInfo__title">
+            (206) 285-2171
+          </h3>
+          <p class="storeInfo__text">
+            Call Now
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Store Info Section -->
+ 
+  <!-- Why Us section -->
+  <section id="whyUs">
+    <div class="container">
+      <div class="whyUs__wrapper">
+        <div class="whyUs__left" data-aos="fade-right">
+          <h2 class="whyUs__title">
+            Why Choose Blue Heron?
+          </h2>
+          <p class="whyUs__text">
+            Every sandwich is made with care, using only the freshest ingredients to ensure a delicious, satisfying meal. 
+            The attention to detail in every cup of coffee and bowl of soup shows our commitment to quality, making it the 
+            perfect spot to start your day! 
+          </p>
+        </div>
+        <div class="whyUs__right" data-aos="fade-left">
+          <div class="whyUs__items__wrapper">
+            <div class="whyUs__item">
+              <div class="whyUs__item__icon">
+                <img src="./images/whyUs-icon1.svg" alt="quality Food">
+              </div>
+              <p class="whyUs__item__text">Quality Ingredients</p>
+            </div>
+            <div class="whyUs__item">
+              <div class="whyUs__item__icon">
+                <img src="./images/whyUs-icon2.svg" alt="Classical taste">
+              </div>
+              <p class="whyUs__item__text">Classical taste</p>
+            </div>
+            <div class="whyUs__item">
+              <div class="whyUs__item__icon">
+                <img src="./images/whyUs-icon3.svg" alt="Skilled chef">
+              </div>
+              <p class="whyUs__item__text">Skilled Chefs</p>
+            </div>
+            <div class="whyUs__item">
+              <div class="whyUs__item__icon">
+                <img src="./images/whyUs-icon4.svg" alt="Best service">
+              </div>
+              <p class="whyUs__item__text">Great Service</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Why Us section -->
+
+  <!-- aos script -->
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <!-- custom script -->
+  <script src="./main.js"></script>
+</body>
+
+</html>

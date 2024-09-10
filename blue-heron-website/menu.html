@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon">
+  <title>Menu | Blue Heron</title>
+  <link rel="stylesheet" href="./reset.css">
+  <link rel="stylesheet" href="./globalStyles.css">
+  <link rel="stylesheet" href="./components.css">
+  <!-- aos library css  -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <!-- Add your custom css -->
+  <link rel="stylesheet" href="./menu.css">
+</head>
+
+<body>
+
+  <!-- Nav Section -->
+  <div class="nav">
+    <div class="container">
+      <div class="nav__wrapper">
+        <a href="./index.html" class="logo">
+          <img src="./images/logo.jpeg" style="width: 75px; height: 75px; border-radius: 50%;" alt="Blue Heron">
+        </a>
+        <nav>
+          <div class="nav__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="feather feather-menu">
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+          </div>
+          <div class="nav__bgOverlay"></div>
+          <ol class="nav__list">
+            <div class="nav__close">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="feather feather-x">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </div>
+            <div class="nav__list__wrapper">
+
+              <li><a class="nav__link" href="./index.html">Home</a></li>
+              <li><a class="nav__link" href="./menu.html">Menu</a></li>
+              <li><a class="nav__link" href="./about.html">About</a></li>
+            </div>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <!-- End Nav Section -->
+  <!-- page Title -->
+  <section id="page__title" data-aos="fade-up">
+    <div class="container">
+      <h2 class="page__title__text">
+        Explore Our Menu
+      </h2>
+    </div>
+  </section>
+  <!-- Our Specials -->
+  <section id="ourSpecials" data-aos="fade-up">
+    <div class="container">
+      <h3 class="ourSpecials__title">Best Sellers</h3>
+      <div class="ourSpecials__wrapper">
+        <div class="ourSpecials__item">
+          <div class="ourSpecials__item__img">
+            <img src="./images/food-3.png" alt="food img">
+          </div>
+          <div class="ourSpecials__item__info">
+            <h3 class="ourSpecials__item__title">
+              Philly Cheese Steak 
+            </h3>
+            <h4 class="ourSpecials__item__price">6" $11.99 / 12" $16.99</h4>
+            <h4 class="ourSpecials__item__ingredients">French Roll Bread, Beef or Chicken, Grilled Onion, Green & Red Peppers, Cheese, Lettuce, Tomato, Mayo</h4>
+          </div>
+        </div>
+        <div class="ourSpecials__item">
+          <div class="ourSpecials__item__img">
+            <img src="./images/food-1.png" alt="food img">
+          </div>
+          <div class="ourSpecials__item__info">
+            <h3 class="ourSpecials__item__title">
+              Bada Bing Supreme
+            </h3>
+            <h4 class="ourSpecials__item__price">6" $11.99 / 12" $16.99</h4>
+            <h4 class="ourSpecials__item__ingredients">French Roll Bread, Hot Ham, Turkey, Bacon Bits, Swiss Cheese, Grilled Onion, Green & Red Peppers, and Mayo</h4>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Our Specials -->
+
+  <section id="dishGrid" data-aos="fade-down">
+    <div class="container">
+      <h2 class="dishGrid__title">
+        Breakfast Menu
+      </h2>
+      <div class="dishGrid__wrapper">
+        <div class="dishGrid__item">
+          <div class="dishGrid__item__img">
+            <img src="./images/food-1.png" alt="food img">
+          </div>
+          <div class="dishGrid__item__info">
+            <h3 class="dishGrid__item__title">
+              Power Breakfast Special
+            </h3>
+            <h3 class="dishGrid__item__price">$8.99</h3>
+            <h3 class="dishGrid__item__ingredients"> Multigrain Roll, with Egg, Avocado, Turkey, Tomato, Swiss Cheese, and Spinach</h3>
+          </div>
+        </div>
+        <div class="dishGrid__item">
+          <div class="dishGrid__item__img">
+            <img src="./images/food/breakfast-sandwich.JPG" alt="food img">
+          </div>
+          <div class="dishGrid__item__info">
+            <h3 class="dishGrid__item__title">
+              Breakfast Sandwich
+            </h3>
+            <h3 class="dishGrid__item__price">$7.99</h3>
+            <h3 class="dishGrid__item__ingredients"> Served on (Bagel / English Muffin / Croissant) with Sausage, Egg, and Cheese</h3>
+          </div>
+        </div>
+        <div class="dishGrid__item">
+          <div class="dishGrid__item__img">
+            <img src="./images/food-1.png" alt="food img">
+          </div>
+          <div class="dishGrid__item__info">
+            <h3 class="dishGrid__item__title">
+              Bagel w/ Cream Cheese
+            </h3>
+            <h3 class="dishGrid__item__price">$3.49</h3>
+          </div>
+        </div>
+        <div class="dishGrid__item">
+          <div class="dishGrid__item__img">
+            <img src="./images/food-1.png" alt="food img">
+          </div>
+          <div class="dishGrid__item__info">
+            <h3 class="dishGrid__item__title">
+              Side order
+            </h3>
+            <h3 class="dishGrid__item__price">$1.50</h3>
+            <h3 class="dishGrid__item__ingredients"> Toast / Hash Brown / Egg / Bacon </h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="dishGrid" data-aos="fade-up">
+    <div class="container">
+      <h2 class="dishGrid__title">
+        Hot Sandwiches (Only Available on French Roll)
+      </h2>
+      <div class="dishGrid__wrapper">
+        <div class="dishGrid__item">
+          <div class="dishGrid__item__img">
+            <img src="./images/food-1.png" alt="food img">
+          </div>
+          <div class="dishGrid__item__info">
+            <h3 class="dishGrid__item__title">
+              Philly Cheese Steak
+            </h3>
+            <h3 class="dishGrid__item__price">6" - $11.99 / 12" - $16.99</h3>
+            <h3 class="dishGrid__item__ingredients"> Beef or Chicken, Grilled Onion, Green & Red Peppers, Cheese, Lettuce, Tomato, and Mayo</h3>
+          </div>
+        </div>
+        <div class="dishGrid__item">
+          <div class="dishGrid__item__img">
+            <img src="./images/food-1.png" alt="food img">
+          </div>
+          <div class="dishGrid__item__info">
+            <h3 class="dishGrid__item__title">
+              Bada Bing Supreme
+            </h3>
+            <h3 class="dishGrid__item__price">6" - $11.99 / 12" - $16.99</h3>
+            <h3 class="dishGrid__item__ingredients"> Hot Ham, Turkey, Bacon Bits, Swiss Cheese, Grilled Onion, Green& Red Peppers, and Mayo</h3>
+          </div>
+        </div>
+        <div class="dishGrid__item">
+          <div class="dishGrid__item__img">
+            <img src="./images/food/french-dip.JPG" alt="food img">
+          </div>
+          <div class="dishGrid__item__info">
+            <h3 class="dishGrid__item__title">
+              French Dip with Au Jus & SW 
+            </h3>
+            <h3 class="dishGrid__item__price">6" - $11.99 / 12" - $16.99</h3>
+            <h3 class="dishGrid__item__ingredients">Beef and Swiss Cheese with Au Jus</h3>
+          </div>
+        </div>
+        <div class="dishGrid__item">
+          <div class="dishGrid__item__img">
+            <img src="./images/food-1.png" alt="food img">
+          </div>
+          <div class="dishGrid__item__info">
+            <h3 class="dishGrid__item__title">
+              Portabella Bliss
+            </h3>
+            <h3 class="dishGrid__item__price">6" - $11.99 / 12" - $16.99</h3>
+            <h3 class="dishGrid__item__ingredients"> Portabella Mushrooms, Grilled Onion, Swiss Cheese, Green & Red Peppers, Mayo and Avocado</h3>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="dishGrid" data-aos="fade-up">
+    <div class="container">
+      <h2 class="dishGrid__title">
+        Hot Sandwiches (Available on French Roll or Bread)
+      </h2>
+      <div class="dishGrid__wrapper">
+        <div class="dishGrid__item">
+          <div class="dishGrid__item__img">
+            <img src="./images/food-1.png" alt="food img">
+          </div>
+          <div class="dishGrid__item__info">
+            <h3 class="dishGrid__item__title">
+              Pastrami Reuben
+            </h3>
+            <h3 class="dishGrid__item__price">French Roll: 6" - $11.99 / 12" - $16.99 <br> <br> Bread: $11.99</h3>
+            <h3 class="dishGrid__item__ingredients">Pastrami, Sauerkraut, Thousand Island, Dijon, Swiss Cheese on Light Rye</h3>
+ 
+ 
+          </div>
+        </div>
+        <div class="dishGrid__item">
+          <div class="dishGrid__item__img">
+            <img src="./images/food-1.png" alt="food img">
+          </div>
+          <div class="dishGrid__item__info">
+            <h3 class="dishGrid__item__title">
+              Hot Ham & Swiss
+            </h3>
+            <h3 class="dishGrid__item__price">French Roll: 6" - $11.99 / 12" - $16.99 <br> <br> Bread: $11.99</h3>
+            <h3 class="dishGrid__item__ingredients">Hot Ham and Swiss Cheese</h3>
+ 
+ 
+          </div>
+        </div>
+        <div class="dishGrid__item">
+          <div class="dishGrid__item__img">
+            <img src="./images/food-1.png" alt="food img">
+          </div>
+          <div class="dishGrid__item__info">
+            <h3 class="dishGrid__item__title">
+              Grilled Cheese
+            </h3>
+            <h3 class="dishGrid__item__price">French Roll: 6" - $11.99 / 12" - $16.99 <br> <br> Bread: $11.99</h3>
+ 
+ 
+          </div>
+        </div>
+        <div class="dishGrid__item">
+          <div class="dishGrid__item__img">
+            <img src="./images/food-1.png" alt="food img">
+          </div>
+          <div class="dishGrid__item__info">
+            <h3 class="dishGrid__item__title">
+              B.L.T.A.
+            </h3>
+            <h3 class="dishGrid__item__price">French Roll: 6" - $11.99 / 12" - $16.99 <br> <br> Bread: $11.99</h3>
+            <h3 class="dishGrid__item__ingredients">Bacon, Lettuce, Tomato, Avocado, and Mayo</h3>
+ 
+ 
+          </div>
+        </div>
+        <div class="dishGrid__item">
+          <div class="dishGrid__item__img">
+            <img src="./images/food-1.png" alt="food img">
+          </div>
+          <div class="dishGrid__item__info">
+            <h3 class="dishGrid__item__title">
+              T.B.A.S.
+            </h3>
+            <h3 class="dishGrid__item__price">French Roll: 6" - $11.99 / 12" - $16.99 <br> <br> Bread: $11.99</h3>
+            <h3 class="dishGrid__item__ingredients">Turkey, Bacon, Swiss Cheese, Avocado, and Mayo</h3>
+ 
+ 
+          </div>
+        </div>
+        <div class="dishGrid__item">
+          <div class="dishGrid__item__img">
+            <img src="./images/food-1.png" alt="food img">
+          </div>
+          <div class="dishGrid__item__info">
+            <h3 class="dishGrid__item__title">
+              Tuna Melt
+            </h3>
+            <h3 class="dishGrid__item__price">French Roll: 6" - $11.99 / 12" - $16.99 <br> <br> Bread: $11.99</h3>
+            <h3 class="dishGrid__item__ingredients">Grilled Tuna, Mayo, and Cheddar Cheese</h3>
+ 
+ 
+          </div>
+        </div> 
+      </div>
+    </div>
+  </section>
+
+  <section id="dishGrid" data-aos="fade-up">
+    <div class="container">
+      <h2 class="dishGrid__title">
+        Make Your Own Cold Sandwich (Half: $7.99 | Whole: $11.99)
+      </h2>
+      <div class="dishGrid__wrapper">
+        <div class="dishGrid__item">
+          <div class="dishGrid__item__img">
+            <img src="./images/food-1.png" alt="food img">
+          </div>
+          <div class="dishGrid__item__info">
+            <h3 class="dishGrid__item__title">
+              Bread
+            </h3>
+            <h3 class="dishGrid__item__price">Sourdough, Light Rye, Wheat, French Roll </h3>
+            <h3 class="dishGrid__item__ingredients">French Roll (6" - $11.99 / 12" - $16.99)</h3>
+
+          </div>
+        </div>
+        <div class="dishGrid__item">
+          <div class="dishGrid__item__img">
+            <img src="./images/food-1.png" alt="food img">
+          </div>
+          <div class="dishGrid__item__info">
+            <h3 class="dishGrid__item__title">
+              Meat
+            </h3>
+            <h3 class="dishGrid__item__price">Roast Beef, Pastrami, Turkey, Ham, Tuna</h3>
+          </div>
+        </div>
+        <div class="dishGrid__item">
+          <div class="dishGrid__item__img">
+            <img src="./images/food-1.png" alt="food img">
+          </div>
+          <div class="dishGrid__item__info">
+            <h3 class="dishGrid__item__title">
+              Cheese
+            </h3>
+            <h3 class="dishGrid__item__price">American, Swiss, Provolone, Cheddar, Pepper Jack</h3>
+          </div>
+        </div>
+        <div class="dishGrid__item">
+          <div class="dishGrid__item__img">
+            <img src="./images/food-1.png" alt="food img">
+          </div>
+          <div class="dishGrid__item__info">
+            <h3 class="dishGrid__item__title">
+              Spread
+            </h3>
+            <h3 class="dishGrid__item__price">Mayo, Mustard, Dijon, Thousand Island, Sauerkraut</h3>
+          </div>
+        </div>
+        <div class="dishGrid__item">
+          <div class="dishGrid__item__img">
+            <img src="./images/food-1.png" alt="food img">
+          </div>
+          <div class="dishGrid__item__info">
+            <h3 class="dishGrid__item__title">
+              Veggies
+            </h3>
+            <h3 class="dishGrid__item__price">Lettuce, Tomato, Onion, Pickle, Jalapeño </h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section id="dishGrid" data-aos="fade-up">
+    <div class="container">
+      <h2 class="dishGrid__title">
+        Specialty Cold Sandwiches (Half: $7.99 | Whole: $11.99)
+      </h2>
+      <div class="dishGrid__wrapper">
+        <div class="dishGrid__item">
+          <div class="dishGrid__item__img">
+            <img src="./images/food-1.png" alt="food img">
+          </div>
+          <div class="dishGrid__item__info">
+            <h3 class="dishGrid__item__title">
+              Vegetarian 
+            </h3>
+            <h3 class="dishGrid__item__ingredients"> Lettuce, Tomato, Onion, Cucumber, Avocado, Olive, Mayo, Cream Cheese, and Swiss & Cheddar Cheese</h3>
+          </div>
+        </div>
+        <div class="dishGrid__item">
+          <div class="dishGrid__item__img">
+            <img src="./images/food-1.png" alt="food img">
+          </div>
+          <div class="dishGrid__item__info">
+            <h3 class="dishGrid__item__title">
+              Club Sub
+            </h3>
+            <h3 class="dishGrid__item__ingredients"> Lettuce, Tomato, Onion, Cheese, Mustard, Mayo, and Choice of Meat ((Ham & Turkey) or (Ham & Turkey & Roast Beef) or (Turkey & Bacon & Avocado))</h3>
+          </div>
+        </div>
+        <div class="dishGrid__item">
+          <div class="dishGrid__item__img">
+            <img src="./images/food/heron-chicken-wrap.JPG" alt="food img">
+          </div>
+          <div class="dishGrid__item__info">
+            <h3 class="dishGrid__item__title">
+              Heron Chicken Wrap 
+            </h3>
+            <h3 class="dishGrid__item__ingredients"> (Whole Wheat Wrap or Garden Spinach Herb Wrap), Chicken, Lettuce, Tomatoes, Onions, Cheese, Green & Red Peppers, Ranch, and Thousand Island </h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="dishGrid" data-aos="fade-up">
+    <div class="container">
+      <h2 class="dishGrid__title">
+        Lunch Special (Half Sized Cold Sandwich w/ Cup of Soup) $12.99
+      </h2>
+      <div class="dishGrid__wrapper">
+        <div class="dishGrid__item">
+          <div class="dishGrid__item__img">
+            <img src="./images/food-1.png" alt="food img">
+          </div>
+          <div class="dishGrid__item__info">
+            <h3 class="dishGrid__item__title">
+              Monday
+            </h3>
+
+            <h3 class="dishGrid__item__ingredients">Roast Beef & Grande Chili</h3>
+          </div>
+        </div>
+        <div class="dishGrid__item">
+          <div class="dishGrid__item__img">
+            <img src="./images/food-1.png" alt="food img">
+          </div>
+          <div class="dishGrid__item__info">
+            <h3 class="dishGrid__item__title">
+              Tuesday
+            </h3>
+            
+            <h3 class="dishGrid__item__ingredients">Egg Salad and Cream & Cheddar Vegetable</h3>
+          </div>
+        </div>
+        <div class="dishGrid__item">
+          <div class="dishGrid__item__img">
+            <img src="./images/food-1.png" alt="food img">
+          </div>
+          <div class="dishGrid__item__info">
+            <h3 class="dishGrid__item__title">
+              Wednesday
+            </h3>
+            <h3 class="dishGrid__item__ingredients">Turkey & Wonton</h3>
+          </div>
+        </div>
+        <div class="dishGrid__item">
+          <div class="dishGrid__item__img">
+            <img src="./images/food-1.png" alt="food img">
+          </div>
+          <div class="dishGrid__item__info">
+            <h3 class="dishGrid__item__title">
+              Thursday
+            </h3>
+            <h3 class="dishGrid__item__ingredients">Ham & Chicken Noodle</h3>
+          </div>
+        </div>
+        <div class="dishGrid__item">
+          <div class="dishGrid__item__img">
+            <img src="./images/food-1.png" alt="food img">
+          </div>
+          <div class="dishGrid__item__info">
+            <h3 class="dishGrid__item__title">
+              Friday
+            </h3>
+            <h3 class="dishGrid__item__ingredients">Roast Beef & Clam Chowder</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="dishGrid" data-aos="fade-up">
+    <div class="container">
+      <h2 class="dishGrid__title">
+        Salad
+      </h2>
+      <div class="dishGrid__wrapper">
+        <div class="dishGrid__item">
+          <div class="dishGrid__item__img">
+            <img src="./images/food-1.png" alt="food img">
+          </div>
+          <div class="dishGrid__item__info">
+            <h3 class="dishGrid__item__title">
+              Garden Salad
+            </h3>
+            <h3 class="dishGrid__item__price">$11.99</h3>
+            <h3 class="dishGrid__item__ingredients">Lettuce, Tomato, Cucumber, Onion, Green Pepper, Cheese, and Olive</h3>
+          </div>
+        </div>
+        <div class="dishGrid__item">
+          <div class="dishGrid__item__img">
+            <img src="./images/food-1.png" alt="food img">
+          </div>
+          <div class="dishGrid__item__info">
+            <h3 class="dishGrid__item__title">
+              Chefs Salad
+            </h3>
+            <h3 class="dishGrid__item__price">$14.99</h3>
+            <h3 class="dishGrid__item__ingredients"> Garden Salad w/ Choice of Meat</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="dishGrid" data-aos="fade-up">
+    <div class="container">
+      <h2 class="dishGrid__title">
+        Soup
+      </h2>
+      <div class="dishGrid__wrapper">
+        <div class="dishGrid__item">
+          <div class="dishGrid__item__img">
+            <img src="./images/food-1.png" alt="food img">
+          </div>
+          <div class="dishGrid__item__info">
+            <h3 class="dishGrid__item__title">
+              Cup 
+            </h3>
+            <h3 class="dishGrid__item__price">$5.99</h3>
+          </div>
+        </div>
+        <div class="dishGrid__item">
+          <div class="dishGrid__item__img">
+            <img src="./images/food-1.png" alt="food img">
+          </div>
+          <div class="dishGrid__item__info">
+            <h3 class="dishGrid__item__title">
+              Bowl
+            </h3>
+            <h3 class="dishGrid__item__price">$7.99</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- aos script -->
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <!-- custom script -->
+  <script src="./main.js"></script>
+</body>
+
+</html>
