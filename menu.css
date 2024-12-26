@@ -33,6 +33,7 @@
 	object-fit: cover; /* Ensures the image covers the container without distortion */
 	border-radius: 10px;
 	margin-bottom: 1.5rem; /* Increased spacing below the image */
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Box shadow */
 }
 
 .dishGrid__item__info {
