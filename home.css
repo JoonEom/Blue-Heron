@@ -64,11 +64,17 @@
 		width: 90%;
 	}
 }
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 767px) {
 	.hero__left,
 	.hero__right {
 		flex: 1;
 	}
+	.hero__heading {
+		font-size: 2rem; /* Ensure it stays readable on mobile */
+		line-height: 1.2em; /* Adjust line height for readability */
+		text-align: center; /* Keep it centered */
+		padding: 0 10px; /* Add padding for spacing */
+	  }
 }
 
 /* WhyUs Section */
@@ -186,7 +192,7 @@
 	border-radius: 10px; /* Rounded corners */
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
 	.img-container {
 		width: 90%; /* Makes the image more responsive on smaller screens */
 	}
