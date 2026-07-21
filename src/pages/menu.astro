@@ -1,20 +1,16 @@
 ---
-import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import CategoryBar from '../components/CategoryBar.astro';
 import MenuSection from '../components/MenuSection.astro';
 import OpenNow from '../components/OpenNow.astro';
+import TodaySpecial from '../components/TodaySpecial.astro';
 import { foodImage } from '../lib/images.ts';
+import { getMenu } from '../lib/menu.ts';
 import { site } from '../data/site.ts';
 
-const sections = (await getCollection('menu')).sort(
-  (a, b) => a.data.order - b.data.order
-);
-const categories = sections.map((s) => ({
-  id: s.data.id,
-  title: s.data.title,
-}));
+const sections = await getMenu();
+const categories = sections.map((s) => ({ id: s.id, title: s.title }));
 
 const cateringImg = foodImage('catering.jpeg');
 ---
@@ -28,8 +24,8 @@ const cateringImg = foodImage('catering.jpeg');
       <p class="eyebrow">Blue Heron</p>
       <h1 class="menuHero__title">The Menu</h1>
       <p class="menuHero__lede">
-        Everything is made to order. Breakfast starts at 7&nbsp;AM, lunch
-        specials change daily.
+        Everything is made to order. Breakfast starts at 7&nbsp;AM, and the
+        lunch special changes daily.
       </p>
 
       <div class="menuHero__meta">
@@ -58,12 +54,16 @@ const cateringImg = foodImage('catering.jpeg');
   </section>
 
   <div class="container">
+    <div class="menuToday">
+      <TodaySpecial />
+    </div>
+
     <CategoryBar categories={categories} />
 
-    {sections.map((s) => <MenuSection {...s.data} />)}
+    {sections.map((s) => <MenuSection {...s} />)}
   </div>
 
-  <section class="catering">
+  <section class="catering" id="catering">
     <div class="container catering__inner no-blowout">
       <div class="catering__body">
         <p class="eyebrow">Catering</p>
@@ -141,6 +141,10 @@ const cateringImg = foodImage('catering.jpeg');
     justify-content: center;
     gap: var(--space-xs);
     margin-top: var(--space-m);
+  }
+
+  .menuToday:not(:empty) {
+    padding-block: var(--space-l);
   }
 
   .catering {

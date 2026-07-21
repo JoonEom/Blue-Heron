@@ -44,12 +44,34 @@ const labelsJson = JSON.stringify(
 
 <script is:inline>
   (function () {
-    var el = document.querySelector('[data-open-now]');
-    if (!el) return;
+    // Pages render this badge more than once (hero AND footer), so the
+    // script is inlined more than once too. Two things to get right:
+    //
+    //   1. Only initialise once — hence the flag.
+    //   2. Wait for DOMContentLoaded before querying. This script runs at
+    //      the point it appears in the document, at which time the footer's
+    //      badge has not been parsed yet, so an immediate querySelectorAll
+    //      would miss it and leave the footer stuck on the static fallback.
+    if (window.__blueHeronOpenNow) return;
+    window.__blueHeronOpenNow = true;
 
-    var hours = JSON.parse(el.dataset.hours);
-    var labels = JSON.parse(el.dataset.labels);
-    var tz = el.dataset.tz;
+    function start() {
+      var els = document.querySelectorAll('[data-open-now]');
+      if (!els.length) return;
+      run(els);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', start);
+    } else {
+      start();
+    }
+
+    function run(els) {
+    var first = els[0];
+    var hours = JSON.parse(first.dataset.hours);
+    var labels = JSON.parse(first.dataset.labels);
+    var tz = first.dataset.tz;
     var DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
     function shopNow() {
@@ -133,13 +155,16 @@ const labelsJson = JSON.stringify(
           : 'Closed';
       }
 
-      el.dataset.state = state;
-      el.querySelector('.openNow__text').textContent = text;
+      for (var i = 0; i < els.length; i++) {
+        els[i].dataset.state = state;
+        els[i].querySelector('.openNow__text').textContent = text;
+      }
     }
 
     render();
     // Keep it honest if the page is left open across a transition.
     setInterval(render, 60000);
+    }
   })();
 </script>
 

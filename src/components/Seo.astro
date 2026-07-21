@@ -1,7 +1,7 @@
 ---
 import { getImage } from 'astro:assets';
 import storefront from '../assets/place/storefront.jpg';
-import { site, fullAddress, schemaOpeningHours } from '../data/site.ts';
+import { site, schemaOpeningHours } from '../data/site.ts';
 
 interface Props {
   title: string;
@@ -108,6 +108,7 @@ const schema = {
 <meta name="theme-color" content="#17335A" />
 
 <script
+  is:inline
   type="application/ld+json"
   set:html={JSON.stringify(schema)}
 />

@@ -19,27 +19,13 @@
 - id: best-sellers
   order: 10
   title: Best Sellers
-  blurb: The two people drive across town for.
-  items:
-    - name: Philly Cheese Steak
-      image: philly-cheese-steak.jpg
-      featured: true
-      prices:
-        - label: 6"
-          amount: 11.99
-        - label: 12"
-          amount: 16.99
-      ingredients: French roll bread, beef or chicken, grilled onion, green & red peppers, cheese, lettuce, tomato, mayo
-    - name: Bada Bing Supreme
-      image: bada-bing.jpg
-      featured: true
-      press: true
-      prices:
-        - label: 6"
-          amount: 11.99
-        - label: 12"
-          amount: 16.99
-      ingredients: French roll bread, hot ham, turkey, bacon bits, swiss cheese, grilled onion, green & red peppers, and mayo
+  blurb: The two that people drive across town for.
+  # These are the same dishes listed under Hot Sandwiches. Referencing them
+  # by name instead of copying them means a price change happens in exactly
+  # one place. The names must match a `name:` further down this file.
+  references:
+    - Philly Cheese Steak
+    - Bada Bing Supreme
 
 - id: breakfast
   order: 20
@@ -50,22 +36,22 @@
       image: power-breakfast.jpg
       prices:
         - amount: 8.99
-      ingredients: Multigrain roll, with egg, avocado, turkey, tomato, swiss cheese, and spinach
+      ingredients: Multigrain roll with egg, avocado, turkey, tomato, swiss cheese, and spinach
     - name: "Breakfast Sandwich #1"
       image: bagel-breakfast-sandwich.jpeg
       prices:
         - amount: 7.99
-      ingredients: Bagel with (sausage / bacon / ham), egg and cheese
+      ingredients: Bagel with sausage, bacon, or ham, plus egg and cheese
     - name: "Breakfast Sandwich #2"
       image: english-muffin-breakfast-sandwich.jpeg
       prices:
         - amount: 7.99
-      ingredients: English muffin with (sausage / bacon / ham), egg and cheese
+      ingredients: English muffin with sausage, bacon, or ham, plus egg and cheese
     - name: "Breakfast Sandwich #3"
       image: croissant-breakfast-sandwich.jpg
       prices:
         - amount: 7.99
-      ingredients: Croissant with (sausage / bacon / ham), egg and cheese
+      ingredients: Croissant with sausage, bacon, or ham, plus egg and cheese
     - name: Bagel with Cream Cheese
       image: bagel-cream-cheese.webp
       prices:
@@ -74,7 +60,7 @@
       image: side-order.jpg
       prices:
         - amount: 1.50
-      ingredients: Toast / hash brown / egg / bacon / avocado
+      ingredients: Toast, hash brown, egg, bacon, or avocado
 
 - id: hot-sandwiches
   order: 30
@@ -83,20 +69,23 @@
   items:
     - name: Philly Cheese Steak
       image: philly-cheese-steak.jpg
+      featured: true
       prices:
         - label: 6"
           amount: 11.99
         - label: 12"
           amount: 16.99
-      ingredients: Beef or chicken, grilled onion, green & red peppers, cheese, lettuce, tomato, and mayo
+      ingredients: French roll, beef or chicken, grilled onion, green & red peppers, cheese, lettuce, tomato, and mayo
     - name: Bada Bing Supreme
       image: bada-bing.jpg
+      featured: true
+      press: true
       prices:
         - label: 6"
           amount: 11.99
         - label: 12"
           amount: 16.99
-      ingredients: Hot ham, turkey, bacon bits, swiss cheese, grilled onion, green & red peppers, and mayo
+      ingredients: French roll, hot ham, turkey, bacon bits, swiss cheese, grilled onion, green & red peppers, and mayo
     - name: French Dip with Au Jus & Swiss
       image: french-dip.jpg
       prices:
@@ -117,7 +106,7 @@
 
 - id: hot-sandwiches-bread
   order: 40
-  title: Hot Sandwiches on Bread
+  title: More Hot Sandwiches
   note: Available on French roll or bread.
   items:
     - name: Pastrami Reuben
@@ -235,7 +224,7 @@
 
 - id: lunch-special
   order: 70
-  title: Lunch Special
+  title: Daily Lunch Special
   note: Half-sized cold sandwich (wheat, rye, sourdough) with a cup of soup — $12.99
   blurb: A different pairing every weekday.
   items:
@@ -257,7 +246,7 @@
 
 - id: salad
   order: 80
-  title: Salad
+  title: Salads
   items:
     - name: Garden Salad
       image: garden-salad.jpeg
@@ -273,7 +262,7 @@
 
 - id: soup
   order: 90
-  title: Soup
+  title: Soups
   items:
     - name: Cup
       image: soup-cup.jpeg

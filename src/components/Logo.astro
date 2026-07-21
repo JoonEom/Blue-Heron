@@ -28,7 +28,7 @@ const { variant = 'full', class: className } = Astro.props;
     text-decoration: none;
   }
 
-  .logo__mark {
+  :global(.logo__mark) {
     width: 2.6em;
     flex-shrink: 0;
   }
@@ -57,7 +57,7 @@ const { variant = 'full', class: className } = Astro.props;
     margin-top: 0.35em;
   }
 
-  .logo--compact .logo__mark {
+  .logo--compact :global(.logo__mark) {
     width: 2.1em;
   }
 </style>

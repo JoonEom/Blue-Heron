@@ -42,3 +42,15 @@ const { class: className, title } = Astro.props;
       stroke-width="1.5"></path>
   </g>
 </svg>
+
+<style>
+  /* A sane default size lives here, in the component's own scope.
+     Sizing rules written by a *parent* component do not apply on their own:
+     Astro scopes them to the parent's id, which this SVG never receives.
+     Parents must therefore wrap their rule in :global(...) — and if one
+     forgets, this default keeps the bird from expanding to fill the page. */
+  svg {
+    width: 3rem;
+    height: auto;
+  }
+</style>

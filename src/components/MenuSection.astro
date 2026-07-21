@@ -8,13 +8,24 @@ interface BuilderGroup {
   options: string;
 }
 
+interface MenuEntry {
+  name: string;
+  image?: string;
+  ingredients?: string;
+  prices?: { label?: string; amount: number }[];
+  variants?: string[];
+  featured?: boolean;
+  press?: boolean;
+  vegetarian?: boolean;
+}
+
 interface Props {
   id: string;
   title: string;
   blurb?: string;
   note?: string;
   image?: string;
-  items?: any[];
+  items?: MenuEntry[];
   builder?: BuilderGroup[];
 }
 

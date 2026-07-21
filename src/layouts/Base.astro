@@ -4,6 +4,7 @@ import '@fontsource-variable/public-sans';
 import '../styles/global.css';
 
 import Seo from '../components/Seo.astro';
+import Notice from '../components/Notice.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import MobileActionBar from '../components/MobileActionBar.astro';
@@ -28,6 +29,7 @@ const { title, description, isHome } = Astro.props;
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
+    <Notice />
     <Header />
     <main id="main">
       <slot />

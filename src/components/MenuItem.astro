@@ -36,6 +36,8 @@ const money = (n: number) =>
   {
     img && (
       <div class="item__thumb">
+        {/* layout="fixed": thumbnails are always 96px on screen, so a 1x/2x
+            pair is all that's needed — no point generating a full srcset. */}
         <Image
           src={img}
           alt={alt}
@@ -45,8 +47,6 @@ const money = (n: number) =>
           position="center"
           quality="mid"
           loading="lazy"
-          {/* Thumbnails are always 96px on screen, so a fixed 1x/2x pair is
-              all that's needed — no point generating a full srcset. */}
           layout="fixed"
         />
       </div>

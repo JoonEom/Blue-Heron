@@ -65,6 +65,21 @@ export const site = {
     catering: true,
     dineIn: true,
     takeout: true,
+    /** Shown on the homepage. Set to null if this stops being true. */
+    parking: 'Free lot right outside',
+  },
+
+  /**
+   * TEMPORARY NOTICE — holiday closures, early closes, a broken oven.
+   * Shows a banner at the top of every page while `active` is true.
+   * Flip it back to false when it no longer applies.
+   *
+   * This exists because the shop already does this with a hand-written sign
+   * taped to the counter; the website should be able to say it too.
+   */
+  notice: {
+    active: false,
+    text: 'Closed July 4–7 for the holiday. Back Monday at 7 AM.',
   },
 
   links: {
@@ -85,6 +100,14 @@ export const site = {
 
   /** Rough price band for structured data: $ / $$ / $$$ / $$$$ */
   priceRange: '$$',
+
+  /** The person who built the site. Shown in the footer credit. */
+  credit: {
+    name: 'Minjoon Eom',
+    role: 'CS student at the University of Washington',
+    portfolio: 'https://minjooneom.us',
+    github: 'https://github.com/JoonEom',
+  },
 } as const;
 
 /* ------------------------------------------------------------

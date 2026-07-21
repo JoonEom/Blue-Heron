@@ -52,6 +52,12 @@ const menu = defineCollection({
     /** Section-level photo, for sections without individual items. */
     image: z.string().optional(),
     items: z.array(item).optional(),
+    /**
+     * Names of items defined elsewhere in the file, pulled into this section.
+     * Lets "Best Sellers" show the same dishes as Hot Sandwiches without
+     * copying their prices, which would then need updating twice.
+     */
+    references: z.array(z.string()).optional(),
     /** The "build your own" choice groups. */
     builder: z.array(builderGroup).optional(),
   }),

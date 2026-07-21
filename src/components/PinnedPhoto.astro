@@ -51,8 +51,11 @@ const img = placeImage(image);
           loading={loading}
           class="pinned__img"
         />
+        {/* Caption lives INSIDE the frame, on the photo's white border.
+            Outside, it floated over whatever the collage overlapped and
+            became unreadable. */}
+        {caption && <figcaption class="pinned__caption">{caption}</figcaption>}
       </div>
-      {caption && <figcaption class="pinned__caption">{caption}</figcaption>}
     </figure>
   )
 }
@@ -94,12 +97,16 @@ const img = placeImage(image);
     display: block;
   }
 
+  /* Sits on the frame's own paper border, so it always has a clean,
+     opaque background regardless of what the collage overlaps. */
   .pinned__caption {
-    margin-top: var(--space-2xs);
+    padding: 0.55rem 0.25rem 0.1rem;
     font-size: var(--step--1);
+    line-height: 1.35;
     color: var(--ink-soft);
     text-align: center;
     font-style: italic;
+    text-wrap: balance;
   }
 
   @media (min-width: 48rem) {

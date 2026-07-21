@@ -1,25 +1,20 @@
 ---
-import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import OpenNow from '../components/OpenNow.astro';
+import TodaySpecial from '../components/TodaySpecial.astro';
 import { foodImage, placeImage } from '../lib/images.ts';
+import { getFeatured } from '../lib/menu.ts';
 import {
   site,
   summarizeHours,
-  fullAddress,
 } from '../data/site.ts';
 
 const storefront = placeImage('storefront.jpg')!;
 const interior = placeImage('interior.jpg')!;
 const posterWall = placeImage('poster-wall.jpg')!;
 
-const sections = (await getCollection('menu')).sort(
-  (a, b) => a.data.order - b.data.order
-);
-const featured = sections
-  .flatMap((s) => s.data.items ?? [])
-  .filter((i) => i.featured);
+const featured = await getFeatured();
 
 const hoursSummary = summarizeHours();
 ---
@@ -34,7 +29,7 @@ const hoursSummary = summarizeHours();
     <div class="container hero__inner no-blowout">
       <div class="hero__text">
         <p class="eyebrow">{site.neighborhood}, Seattle · Since {site.founded}</p>
-        <h1 class="hero__title">Sandwiches, soup,<br class="br-wide" />and good coffee.</h1>
+        <h1 class="hero__title">Sandwiches, soups,<br class="br-wide" />and good coffee.</h1>
         <p class="hero__lede">
           A corner sandwich and coffee house in Magnolia. Everything made to
           order, the way it has been since {site.founded}.
@@ -49,13 +44,17 @@ const hoursSummary = summarizeHours();
           </a>
         </div>
 
-        {
-          site.features.driveThru && (
-            <p class="hero__driveThru">
-              <strong>Drive-thru</strong> — order without leaving the car.
-            </p>
-          )
-        }
+        <ul class="hero__perks">
+          {
+            site.features.driveThru && (
+              <li>
+                <strong>Drive-thru</strong> — order without leaving the car
+              </li>
+            )
+          }
+          {site.features.parking && <li>{site.features.parking}</li>}
+          <li>Walk in, or call ahead and we'll have it ready</li>
+        </ul>
       </div>
 
       <div class="hero__media">
@@ -119,6 +118,13 @@ const hoursSummary = summarizeHours();
     </div>
   </section>
 
+  <!-- ============ Today's special ============ -->
+  <section class="todayBand">
+    <div class="container">
+      <TodaySpecial />
+    </div>
+  </section>
+
   <!-- ============ Best sellers ============ -->
   <section class="sellers">
     <div class="container">
@@ -148,14 +154,14 @@ const hoursSummary = summarizeHours();
                   <h3 class="seller__name">{item.name}</h3>
                   {item.press && (
                     <p class="seller__press">
-                      Featured in {site.links.pressOutlet}
+                      As seen in {site.links.pressOutlet}
                     </p>
                   )}
                   <p class="seller__ingredients">{item.ingredients}</p>
                   <p class="seller__price">
                     {item.prices
                       ?.map(
-                        (p) =>
+                        (p: { label?: string; amount: number }) =>
                           `${p.label ? p.label + ' ' : ''}$${p.amount.toFixed(2)}`
                       )
                       .join(' · ')}
@@ -225,7 +231,7 @@ const hoursSummary = summarizeHours();
         class="room__img"
       />
       <p class="room__caption">
-        Checkerboard floors, hand-lettered boards, and a lot of plants.
+        Checkerboard floors, hand-lettered menu boards, and a lot of plants.
         Come sit down.
       </p>
     </div>
@@ -267,17 +273,41 @@ const hoursSummary = summarizeHours();
     margin-top: var(--space-m);
   }
 
-  .hero__driveThru {
+  .hero__perks {
+    list-style: none;
+    padding: 0;
     margin-top: var(--space-m);
     padding-top: var(--space-m);
     border-top: 1px solid var(--oak);
     font-size: var(--step--1);
     color: var(--ink-soft);
-    max-width: 34ch;
+    max-width: 38ch;
+    display: grid;
+    gap: var(--space-3xs);
   }
 
-  .hero__driveThru strong {
+  .hero__perks li {
+    padding-inline-start: 1.1em;
+    position: relative;
+  }
+
+  .hero__perks li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--oak);
+  }
+
+  .hero__perks strong {
     color: var(--navy);
+  }
+
+  .todayBand {
+    padding-block: var(--space-xl) 0;
   }
 
   .hero__media {
