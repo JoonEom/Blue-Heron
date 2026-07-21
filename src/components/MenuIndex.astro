@@ -1,0 +1,125 @@
+---
+interface Props {
+  categories: { id: string; title: string }[];
+}
+
+const { categories } = Astro.props;
+
+/**
+ * Contents list, set like the front of a printed menu.
+ *
+ * Replaces the sticky scrolling chip bar, which read as app furniture on a
+ * page that is trying to feel like a menu card. This sits once at the top,
+ * doesn't follow the reader, scrolls in no direction, and ships no
+ * JavaScript at all — it's a list of anchor links.
+ */
+---
+
+<nav class="mindex" aria-labelledby="mindex-title">
+  <h2 class="mindex__title" id="mindex-title">Contents</h2>
+  <ol class="mindex__list">
+    {
+      categories.map((c) => (
+        <li class="mindex__item">
+          <a class="mindex__link" href={`#${c.id}`}>
+            <span class="mindex__name">{c.title}</span>
+            <span class="mindex__dots" aria-hidden="true" />
+          </a>
+        </li>
+      ))
+    }
+  </ol>
+</nav>
+
+<style>
+  .mindex {
+    background: var(--paper);
+    border: 1px solid var(--sand);
+    border-radius: var(--radius-l);
+    padding: var(--space-l) var(--space-m);
+    box-shadow: var(--shadow-s);
+  }
+
+  @media (min-width: 34rem) {
+    .mindex {
+      padding: var(--space-xl) var(--space-l);
+    }
+  }
+
+  .mindex__title {
+    font-family: var(--font-body);
+    font-size: var(--step--1);
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--oak-deep);
+    text-align: center;
+    margin-bottom: var(--space-m);
+  }
+
+  /* The rule under the heading, drawn short and centred like a menu card. */
+  .mindex__title::after {
+    content: '';
+    display: block;
+    width: 2.5rem;
+    height: 2px;
+    background: var(--oak);
+    margin: var(--space-2xs) auto 0;
+  }
+
+  .mindex__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    counter-reset: none;
+  }
+
+  @media (min-width: 48rem) {
+    .mindex__list {
+      /* Two columns, filled down then across, like a printed contents page. */
+      column-count: 2;
+      column-gap: var(--space-2xl);
+    }
+  }
+
+  .mindex__item {
+    break-inside: avoid;
+  }
+
+  .mindex__link {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-2xs);
+    /* Comfortable tap target without looking like a button. */
+    min-height: var(--tap);
+    padding-block: var(--space-3xs);
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    color: var(--navy);
+    text-decoration: none;
+  }
+
+  /* Must be allowed to shrink and wrap. Pinned at flex-shrink: 0, the
+     longest entry ("Make Your Own Cold Sandwich") measured 283px against a
+     280px column at 320px wide and pushed the whole page sideways. */
+  .mindex__name {
+    min-width: 0;
+  }
+
+  /* Leader dots: a dotted rule that grows to fill whatever space is left. */
+  .mindex__dots {
+    flex: 1;
+    border-bottom: 2px dotted var(--oak);
+    opacity: 0.5;
+    transform: translateY(-0.25em);
+  }
+
+  .mindex__link:hover .mindex__name,
+  .mindex__link:focus-visible .mindex__name {
+    color: var(--oak-deep);
+  }
+
+  .mindex__link:hover .mindex__dots {
+    opacity: 0.9;
+  }
+</style>

@@ -1,0 +1,134 @@
+---
+import { Image } from 'astro:assets';
+import { placeImage } from '../lib/images.ts';
+
+interface Props {
+  image: string;
+  alt: string;
+  caption?: string;
+  /** Degrees of tilt. Flattened to 0 on small screens and for
+   *  reduced-motion users — the tilt is decoration, not information. */
+  rotate?: number;
+  /** Display width in CSS pixels. Astro caps the generated srcset at 2x
+   *  this, which is what stops a 4284px original shipping to a phone. */
+  width?: number;
+  sizes?: string;
+  /** Aspect ratio, e.g. "4 / 5". Omit to keep the photo's own. */
+  ratio?: string;
+  /** object-position for the crop, e.g. "center 65%". Matters when a tall
+   *  photo is cropped short and the subject isn't in the middle. */
+  position?: string;
+  class?: string;
+  loading?: 'lazy' | 'eager';
+  /** Marks this as the page's LCP image: eager + fetchpriority=high. */
+  priority?: boolean;
+}
+
+const {
+  image,
+  alt,
+  caption,
+  rotate = 0,
+  width = 640,
+  sizes = '(min-width: 48rem) 40vw, 90vw',
+  ratio,
+  position,
+  class: className,
+  loading = 'lazy',
+  priority = false,
+} = Astro.props;
+
+const img = placeImage(image);
+---
+
+{
+  img && (
+    <figure
+      class:list={['pinned', className]}
+      style={`--rotate:${rotate}deg;${ratio ? `--ratio:${ratio};` : ''}${
+        position ? `--pos:${position};` : ''
+      }`}
+    >
+      <div class="pinned__frame">
+        <span class="pinned__tack" aria-hidden="true" />
+        <Image
+          src={img}
+          alt={alt}
+          width={width}
+          sizes={sizes}
+          quality="mid"
+          loading={priority ? undefined : loading}
+          priority={priority}
+          class="pinned__img"
+        />
+        {/* Caption lives INSIDE the frame, on the photo's white border.
+            Outside, it floated over whatever the collage overlapped and
+            became unreadable. */}
+        {caption && <figcaption class="pinned__caption">{caption}</figcaption>}
+      </div>
+    </figure>
+  )
+}
+
+<style>
+  .pinned {
+    margin: 0;
+    /* Flat by default (mobile). The tilt is added back at wider widths,
+       where there is room for it not to cause horizontal overflow. */
+    transform: none;
+  }
+
+  .pinned__frame {
+    position: relative;
+    background: var(--paper);
+    padding: 0.6rem 0.6rem 0.6rem;
+    border-radius: 2px;
+    box-shadow: var(--shadow-m);
+  }
+
+  .pinned__tack {
+    position: absolute;
+    top: -7px;
+    left: 50%;
+    translate: -50% 0;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--oak);
+    box-shadow: 0 1px 3px rgb(58 49 40 / 0.45);
+    z-index: 2;
+  }
+
+  .pinned :global(.pinned__img) {
+    width: 100%;
+    height: auto;
+    aspect-ratio: var(--ratio, auto);
+    object-fit: cover;
+    object-position: var(--pos, center);
+    display: block;
+  }
+
+  /* Sits on the frame's own paper border, so it always has a clean,
+     opaque background regardless of what the collage overlaps. */
+  .pinned__caption {
+    padding: 0.55rem 0.25rem 0.1rem;
+    font-size: var(--step--1);
+    line-height: 1.35;
+    color: var(--ink-soft);
+    text-align: center;
+    font-style: italic;
+    text-wrap: balance;
+  }
+
+  @media (min-width: 48rem) {
+    .pinned {
+      transform: rotate(var(--rotate));
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pinned {
+      transform: none;
+    }
+  }
+</style>

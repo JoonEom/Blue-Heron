@@ -1,0 +1,199 @@
+---
+import { site, DAY_ORDER, formatTime, summarizeHours } from '../data/site.ts';
+
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+
+/**
+ * Server-rendered fallback: the plain hours summary.
+ * If JavaScript never runs, the visitor still sees when the shop is open —
+ * they just don't get the live "open right now" state. That is the correct
+ * fallback, and the reason this isn't rendered at build time: a static
+ * "Open now" baked in at 2pm would be a lie at 9pm.
+ */
+const fallback = summarizeHours()
+  .map((g) => `${g.days} ${g.time}`)
+  .join(' · ');
+
+const hoursJson = JSON.stringify(
+  DAY_ORDER.map((d) => {
+    const h = site.hours[d];
+    return h ? [h.open, h.close] : null;
+  })
+);
+
+const labelsJson = JSON.stringify(
+  DAY_ORDER.map((d) => {
+    const h = site.hours[d];
+    return h ? [formatTime(h.open), formatTime(h.close)] : null;
+  })
+);
+---
+
+<p
+  class:list={['openNow', className]}
+  data-open-now
+  data-hours={hoursJson}
+  data-labels={labelsJson}
+  data-tz={site.timezone}
+>
+  <span class="openNow__text">{fallback}</span>
+</p>
+
+<script is:inline>
+  (function () {
+    // Pages render this badge more than once (hero AND footer), so the
+    // script is inlined more than once too. Two things to get right:
+    //
+    //   1. Only initialise once — hence the flag.
+    //   2. Wait for DOMContentLoaded before querying. This script runs at
+    //      the point it appears in the document, at which time the footer's
+    //      badge has not been parsed yet, so an immediate querySelectorAll
+    //      would miss it and leave the footer stuck on the static fallback.
+    if (window.__blueHeronOpenNow) return;
+    window.__blueHeronOpenNow = true;
+
+    function start() {
+      var els = document.querySelectorAll('[data-open-now]');
+      if (!els.length) return;
+      run(els);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', start);
+    } else {
+      start();
+    }
+
+    function run(els) {
+    var first = els[0];
+    var hours = JSON.parse(first.dataset.hours);
+    var labels = JSON.parse(first.dataset.labels);
+    var tz = first.dataset.tz;
+    var DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+    function shopNow() {
+      // Read the current wall-clock time in the shop's timezone, so the
+      // badge is correct for a visitor in any timezone.
+      var parts = new Intl.DateTimeFormat('en-US', {
+        timeZone: tz,
+        weekday: 'short',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+      }).formatToParts(new Date());
+
+      var get = function (t) {
+        for (var i = 0; i < parts.length; i++)
+          if (parts[i].type === t) return parts[i].value;
+        return '';
+      };
+
+      var wd = get('weekday');
+      var map = { Mon: 0, Tue: 1, Wed: 2, Thu: 3, Fri: 4, Sat: 5, Sun: 6 };
+      var hour = parseInt(get('hour'), 10);
+      // Intl can return "24" for midnight in some engines.
+      if (hour === 24) hour = 0;
+      return {
+        day: map[wd],
+        minutes: hour * 60 + parseInt(get('minute'), 10),
+      };
+    }
+
+    function toMinutes(hhmm) {
+      var p = hhmm.split(':');
+      return parseInt(p[0], 10) * 60 + parseInt(p[1], 10);
+    }
+
+    function nextOpenDay(from) {
+      for (var i = 1; i <= 7; i++) {
+        var d = (from + i) % 7;
+        if (hours[d]) return { index: d, offset: i };
+      }
+      return null;
+    }
+
+    function render() {
+      var now = shopNow();
+      var today = hours[now.day];
+      var state, text;
+
+      if (today) {
+        var open = toMinutes(today[0]);
+        var close = toMinutes(today[1]);
+
+        if (now.minutes >= open && now.minutes < close) {
+          var left = close - now.minutes;
+          state = 'open';
+          text =
+            left <= 60
+              ? 'Open now · closes in ' + left + ' min'
+              : 'Open now · until ' + labels[now.day][1];
+        } else if (now.minutes < open) {
+          state = 'closed';
+          text = 'Closed · opens today at ' + labels[now.day][0];
+        } else {
+          var nx = nextOpenDay(now.day);
+          state = 'closed';
+          text = nx
+            ? 'Closed · opens ' +
+              (nx.offset === 1 ? 'tomorrow' : DAYS[nx.index]) +
+              ' at ' +
+              labels[nx.index][0]
+            : 'Closed';
+        }
+      } else {
+        var n = nextOpenDay(now.day);
+        state = 'closed';
+        text = n
+          ? 'Closed · opens ' +
+            (n.offset === 1 ? 'tomorrow' : DAYS[n.index]) +
+            ' at ' +
+            labels[n.index][0]
+          : 'Closed';
+      }
+
+      for (var i = 0; i < els.length; i++) {
+        els[i].dataset.state = state;
+        els[i].querySelector('.openNow__text').textContent = text;
+      }
+    }
+
+    render();
+    // Keep it honest if the page is left open across a transition.
+    setInterval(render, 60000);
+    }
+  })();
+</script>
+
+<style>
+  .openNow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55em;
+    font-size: var(--step--1);
+    font-weight: 600;
+    color: var(--ink-soft);
+  }
+
+  /* The dot only appears once JS has resolved a real state, so it never
+     shows a misleading colour on the static fallback. */
+  .openNow[data-state]::before {
+    content: '';
+    width: 0.55em;
+    height: 0.55em;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: currentColor;
+  }
+
+  .openNow[data-state='open'] {
+    color: #1c6b3f;
+  }
+
+  .openNow[data-state='closed'] {
+    color: var(--ink-soft);
+  }
+</style>

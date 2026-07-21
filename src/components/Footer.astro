@@ -1,0 +1,387 @@
+---
+import HeronMark from './HeronMark.astro';
+import OpenNow from './OpenNow.astro';
+import {
+  site,
+  DAY_ORDER,
+  formatTime,
+  capitalize,
+} from '../data/site.ts';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <div class="footer__brand">
+      <HeronMark class="footer__mark" />
+      <p class="footer__name">{site.name}</p>
+      <p class="footer__tagline">{site.tagline}</p>
+      <p class="footer__since">
+        Serving {site.neighborhood} since {site.founded}
+      </p>
+    </div>
+
+    <section class="footer__block">
+      <h2 class="footer__heading">Hours</h2>
+      <OpenNow class="footer__openNow" />
+      <table class="hours">
+        <tbody>
+          {
+            DAY_ORDER.map((day) => {
+              const h = site.hours[day];
+              return (
+                <tr class:list={[!h && 'hours__row--closed']}>
+                  <th scope="row">{capitalize(day)}</th>
+                  <td>
+                    {h
+                      ? `${formatTime(h.open)} – ${formatTime(h.close)}`
+                      : 'Closed'}
+                  </td>
+                </tr>
+              );
+            })
+          }
+        </tbody>
+      </table>
+    </section>
+
+    <section class="footer__block">
+      <h2 class="footer__heading">Find us</h2>
+      <address class="footer__address">
+        <a href={site.links.directions} target="_blank" rel="noopener">
+          {site.address.street}<br />
+          {`${site.address.city}, ${site.address.region} ${site.address.postalCode}`}
+          <span class="footer__cue">Get directions →</span>
+        </a>
+      </address>
+      <p class="footer__phone">
+        <a href={`tel:${site.phone.href}`}>{site.phone.display}</a>
+      </p>
+      {
+        site.features.driveThru && (
+          <p class="footer__badge">Drive-thru available</p>
+        )
+      }
+    </section>
+
+    <section class="footer__block">
+      <h2 class="footer__heading">More</h2>
+      <ul class="footer__links">
+        <li><a href="/menu">Menu</a></li>
+        <li><a href="/about">Our story</a></li>
+        <li><a href="/menu#catering">Catering</a></li>
+        <li>
+          <a href={site.links.yelp} target="_blank" rel="noopener">
+            Reviews on Yelp
+          </a>
+        </li>
+        <li>
+          <a href={site.links.pressArticle} target="_blank" rel="noopener">
+            In {site.links.pressOutlet}
+          </a>
+        </li>
+      </ul>
+    </section>
+  </div>
+
+  <div class="container">
+    <div class="credit">
+      <HeronMark class="credit__mark" />
+      <div class="credit__body">
+        <p class="credit__label">Designed &amp; built by</p>
+        <p class="credit__name">{site.credit.name}</p>
+        <p class="credit__role">{site.credit.role}</p>
+        <p class="credit__links">
+          <a href={site.credit.portfolio} target="_blank" rel="noopener">
+            Portfolio
+          </a>
+          <span aria-hidden="true">·</span>
+          <a href={site.credit.github} target="_blank" rel="noopener">
+            GitHub
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container footer__legal">
+    <p>© {year} {site.legalName}</p>
+    <p>Magnolia, Seattle</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--navy);
+    color: var(--cream);
+    padding-block: var(--space-2xl) var(--space-l);
+    /* Clear the sticky mobile action bar. */
+    margin-bottom: 3.5rem;
+  }
+
+  @media (min-width: 48rem) {
+    .footer {
+      margin-bottom: 0;
+    }
+  }
+
+  .footer__inner {
+    display: grid;
+    gap: var(--space-xl);
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 34rem) {
+    .footer__inner {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 62rem) {
+    .footer__inner {
+      grid-template-columns: 1.2fr 1fr 1fr 0.8fr;
+      gap: var(--space-2xl);
+    }
+  }
+
+  :global(.footer__mark) {
+    width: 4rem;
+    color: var(--cream);
+    opacity: 0.9;
+    margin-bottom: var(--space-xs);
+  }
+
+  .footer__name {
+    font-family: var(--font-display);
+    font-size: var(--step-2);
+    font-weight: 600;
+    line-height: 1.1;
+  }
+
+  .footer__tagline {
+    font-size: var(--step--1);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.75;
+    margin-top: var(--space-3xs);
+  }
+
+  .footer__since {
+    font-size: var(--step--1);
+    opacity: 0.7;
+    margin-top: var(--space-s);
+  }
+
+  .footer__heading {
+    font-family: var(--font-body);
+    font-size: var(--step--1);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--oak-light);
+    margin-bottom: var(--space-s);
+  }
+
+  .footer__openNow {
+    margin-bottom: var(--space-xs);
+  }
+
+  /* Override the light-background colours from OpenNow. */
+  .footer :global(.openNow) {
+    color: rgb(247 240 225 / 0.85);
+  }
+  .footer :global(.openNow[data-state='open']) {
+    color: #8fd6a8;
+  }
+  .footer :global(.openNow[data-state='closed']) {
+    color: rgb(247 240 225 / 0.7);
+  }
+
+  .hours {
+    width: 100%;
+    max-width: 18rem;
+    border-collapse: collapse;
+    font-size: var(--step--1);
+  }
+
+  .hours th,
+  .hours td {
+    padding-block: 0.3rem;
+    text-align: start;
+    font-weight: 400;
+  }
+
+  .hours th {
+    color: rgb(247 240 225 / 0.75);
+  }
+
+  .hours td {
+    text-align: end;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Dim the closed days with an explicit colour rather than `opacity`.
+     Opacity multiplies with the cell's own alpha (0.75 x 0.5 = 0.375),
+     which dropped these to 2.9:1. This lands at 5.7:1. */
+  .hours__row--closed th,
+  .hours__row--closed td {
+    color: rgb(247 240 225 / 0.65);
+    font-style: italic;
+  }
+
+  .footer__address {
+    font-style: normal;
+    font-size: var(--step--1);
+    line-height: 1.65;
+  }
+
+  .footer__cue {
+    display: flex;
+    align-items: center;
+    min-height: var(--tap);
+    margin-top: var(--space-3xs);
+    color: var(--oak-light);
+    font-weight: 600;
+  }
+
+  .footer__phone {
+    margin-top: var(--space-s);
+    font-size: var(--step-1);
+    font-family: var(--font-display);
+  }
+
+  .footer__badge {
+    display: inline-block;
+    margin-top: var(--space-s);
+    padding: 0.25rem 0.7rem;
+    border: 1px solid rgb(247 240 225 / 0.35);
+    border-radius: 100px;
+    font-size: var(--step--1);
+    font-weight: 600;
+  }
+
+  .footer__links {
+    display: grid;
+    gap: var(--space-2xs);
+    list-style: none;
+    padding: 0;
+    font-size: var(--step--1);
+  }
+
+  .footer a {
+    color: var(--cream);
+    text-decoration: none;
+  }
+
+  .footer a:hover {
+    color: var(--cream);
+    text-decoration: underline;
+  }
+
+  /* 44px, not 32px. On a phone these were the smallest targets on the
+     site and sit in the region most people reach with a thumb. */
+  .footer__links a,
+  .footer__address a,
+  .footer__phone a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+  }
+
+  .footer__address a,
+  .footer__phone a {
+    display: inline-block;
+  }
+
+  /* ---------- Build credit ----------
+     Given its own band rather than a one-line footnote: legible and
+     properly designed, but visually quieter than the restaurant's own
+     content and placed below it, so it never competes with the menu,
+     the hours or the phone number. */
+  .credit {
+    display: flex;
+    align-items: center;
+    gap: var(--space-m);
+    margin-top: var(--space-2xl);
+    padding: var(--space-m) var(--space-l);
+    /* Inset DARKER than the footer, not lighter. A cream tint lifted the
+       panel to #243E62, where --oak-light falls to 3.96:1 and fails. Going
+       darker only ever increases contrast, so the token stays valid. */
+    background: rgb(14 35 64 / 0.55);
+    border: 1px solid rgb(247 240 225 / 0.14);
+    border-radius: var(--radius-l);
+  }
+
+  :global(.credit__mark) {
+    width: 3.25rem;
+    flex-shrink: 0;
+    color: var(--oak-light);
+    opacity: 0.9;
+  }
+
+  .credit__label {
+    font-size: var(--step--1);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--oak-light);
+  }
+
+  .credit__name {
+    font-family: var(--font-display);
+    font-size: var(--step-2);
+    font-weight: 600;
+    line-height: 1.15;
+    margin-top: 0.1rem;
+  }
+
+  .credit__role {
+    font-size: var(--step--1);
+    color: rgb(247 240 225 / 0.75);
+    margin-top: 0.15rem;
+  }
+
+  .credit__links {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    margin-top: var(--space-2xs);
+    font-size: var(--step--1);
+    font-weight: 600;
+  }
+
+  .credit__links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+    color: var(--cream);
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+  }
+
+  .credit__links span {
+    color: rgb(247 240 225 / 0.4);
+  }
+
+  @media (max-width: 33.99rem) {
+    .credit {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-s);
+    }
+  }
+
+  .footer__legal {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-2xs);
+    margin-top: var(--space-m);
+    padding-top: var(--space-m);
+    border-top: 1px solid rgb(247 240 225 / 0.16);
+    font-size: var(--step--1);
+    opacity: 0.75;
+  }
+</style>

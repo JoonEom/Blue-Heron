@@ -1,0 +1,58 @@
+---
+import { site } from '../data/site.ts';
+
+/**
+ * Temporary notice bar — holiday closures, early closes, anything that
+ * overrides the normal hours.
+ *
+ * Edit `notice` in src/data/site.ts to turn it on or off. The shop already
+ * does this with a sign taped to the counter; this is the web equivalent,
+ * and it's a one-line change.
+ */
+const { active, text } = site.notice;
+---
+
+{
+  active && (
+    <div class="notice" role="status">
+      <p class="container notice__text">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          aria-hidden="true"
+        >
+          <circle cx="12" cy="12" r="10" />
+          <path d="M12 8v5M12 16.5v.01" />
+        </svg>
+        <span>{text}</span>
+      </p>
+    </div>
+  )
+}
+
+<style>
+  .notice {
+    background: var(--oak-deep);
+    color: var(--paper);
+  }
+
+  .notice__text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2xs);
+    padding-block: var(--space-2xs);
+    font-size: var(--step--1);
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .notice__text svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+</style>

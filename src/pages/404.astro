@@ -1,0 +1,73 @@
+---
+import Base from '../layouts/Base.astro';
+import HeronMark from '../components/HeronMark.astro';
+import { site } from '../data/site.ts';
+---
+
+<Base
+  title="Page not found"
+  description="That page doesn't exist. Here's the menu instead."
+>
+  <section class="nf">
+    <div class="container container--narrow">
+      <HeronMark class="nf__mark" />
+      <p class="eyebrow">404</p>
+      <h1 class="nf__title">That page flew off.</h1>
+      <p class="nf__text">
+        The page you're after doesn't exist — but the sandwiches do.
+      </p>
+      <div class="nf__actions">
+        <a class="btn btn--primary" href="/menu">See the menu</a>
+        <a class="btn btn--secondary" href="/">Back home</a>
+      </div>
+      <p class="nf__call">
+        Or just call us: <a href={`tel:${site.phone.href}`}>{site.phone.display}</a>
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nf {
+    text-align: center;
+    padding-block: var(--space-3xl) var(--space-4xl);
+  }
+
+  :global(.nf__mark) {
+    width: 6rem;
+    margin-inline: auto;
+    color: var(--mist);
+    margin-bottom: var(--space-m);
+  }
+
+  .nf__title {
+    font-size: var(--step-5);
+    margin-bottom: var(--space-s);
+  }
+
+  .nf__text {
+    color: var(--ink-soft);
+  }
+
+  .nf__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-xs);
+    margin-top: var(--space-l);
+  }
+
+  .nf__call {
+    margin-top: var(--space-l);
+    font-size: var(--step--1);
+    color: var(--ink-soft);
+  }
+
+  .nf__call a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+    padding-inline: var(--space-2xs);
+    font-weight: 600;
+  }
+</style>

@@ -1,0 +1,113 @@
+---
+import { getLunchSpecials } from '../lib/menu.ts';
+import { site, DAY_ORDER } from '../data/site.ts';
+
+/**
+ * "Today's lunch special."
+ *
+ * The lunch special changes by weekday. Without this, someone deciding where
+ * to eat right now has to work out what day it is and scan a five-row list.
+ * This answers it directly.
+ *
+ * Resolved in the browser, not at build time: a page built on Monday would
+ * otherwise tell a Thursday visitor about Monday's chili.
+ */
+const { note, byDay } = await getLunchSpecials();
+
+const days = DAY_ORDER.map((d) => byDay[d]?.ingredients ?? null);
+const dayNames = DAY_ORDER.map((d) => d.charAt(0).toUpperCase() + d.slice(1));
+---
+
+<aside
+  class="today"
+  data-today
+  data-days={JSON.stringify(days)}
+  data-daynames={JSON.stringify(dayNames)}
+  data-tz={site.timezone}
+  hidden
+>
+  <p class="today__label">Today's lunch special</p>
+  <p class="today__dish" data-today-dish></p>
+  <p class="today__note">{note}</p>
+  <a class="today__link" href="/menu#lunch-special">See the week →</a>
+</aside>
+
+<script is:inline>
+  (function () {
+    if (window.__blueHeronToday) return;
+    window.__blueHeronToday = true;
+
+    var nodes = document.querySelectorAll('[data-today]');
+    if (!nodes.length) return;
+
+    var first = nodes[0];
+    var days = JSON.parse(first.dataset.days);
+    var names = JSON.parse(first.dataset.daynames);
+    var tz = first.dataset.tz;
+
+    var wd = new Intl.DateTimeFormat('en-US', {
+      timeZone: tz,
+      weekday: 'short',
+    }).format(new Date());
+    var idx = { Mon: 0, Tue: 1, Wed: 2, Thu: 3, Fri: 4, Sat: 5, Sun: 6 }[wd];
+
+    var dish = days[idx];
+    // Weekends have no special, so the block simply stays hidden.
+    if (dish == null) return;
+
+    for (var i = 0; i < nodes.length; i++) {
+      nodes[i].querySelector('[data-today-dish]').textContent = dish;
+      nodes[i].querySelector('.today__label').textContent =
+        names[idx] + "'s lunch special";
+      nodes[i].hidden = false;
+    }
+  })();
+</script>
+
+<style>
+  .today {
+    display: block;
+    background: var(--paper);
+    border: 1px solid var(--sand);
+    border-left: 4px solid var(--oak);
+    border-radius: var(--radius-m);
+    padding: var(--space-m);
+    box-shadow: var(--shadow-s);
+  }
+
+  .today[hidden] {
+    display: none;
+  }
+
+  .today__label {
+    font-family: var(--font-body);
+    font-size: var(--step--1);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--oak-deep);
+  }
+
+  .today__dish {
+    font-family: var(--font-display);
+    font-size: var(--step-2);
+    line-height: 1.2;
+    color: var(--navy);
+    margin-top: var(--space-3xs);
+  }
+
+  .today__note {
+    margin-top: var(--space-2xs);
+    font-size: var(--step--1);
+    color: var(--ink-soft);
+  }
+
+  .today__link {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+    margin-top: var(--space-2xs);
+    font-size: var(--step--1);
+    font-weight: 600;
+  }
+</style>

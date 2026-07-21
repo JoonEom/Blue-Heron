@@ -1,0 +1,170 @@
+---
+import Logo from './Logo.astro';
+import { site } from '../data/site.ts';
+
+const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
+
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/menu', label: 'Menu' },
+  { href: '/about', label: 'Our Story' },
+];
+---
+
+<header class="header">
+  <div class="container header__inner">
+    {/* No aria-label here: the Logo renders the name and tagline as real
+        text, so the link already has an accessible name. Overriding it with
+        a different string breaks WCAG 2.5.3 (Label in Name) — a voice-control
+        user saying "click Blue Heron Sandwiches" would not match. */}
+    <a href="/" class="header__logo">
+      <Logo variant="full" />
+    </a>
+
+    <nav aria-label="Main">
+      <ul class="header__nav">
+        {
+          links.map((l) => (
+            <li>
+              <a
+                href={l.href}
+                class="header__link"
+                aria-current={path === l.href ? 'page' : undefined}
+              >
+                {l.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <a class="header__call" href={`tel:${site.phone.href}`}>
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path>
+      </svg>
+      <span>{site.phone.display}</span>
+    </a>
+  </div>
+</header>
+
+<style>
+  .header {
+    background: var(--navy);
+    color: var(--cream);
+  }
+
+  .header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2xs);
+    /* Tight on phones: this header used to occupy 265px, roughly a third of
+       an iPhone screen, before any content appeared. */
+    padding-block: var(--space-3xs);
+    flex-wrap: wrap;
+  }
+
+  .header__logo {
+    color: var(--cream);
+    text-decoration: none;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+  }
+
+  .header__logo:hover {
+    color: var(--cream);
+    opacity: 0.85;
+  }
+
+  .header__nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3xs);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    /* On mobile this wraps to its own full-width row, spread edge to edge so
+       each link is an easy thumb target without needing extra height. */
+    order: 3;
+    width: 100%;
+    border-top: 1px solid rgb(247 240 225 / 0.16);
+  }
+
+  .header__link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    min-height: var(--tap);
+    padding-inline: var(--space-2xs);
+    color: var(--cream);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: var(--step--1);
+    letter-spacing: 0.04em;
+    border-radius: var(--radius-s);
+  }
+
+  .header__link:hover {
+    color: var(--cream);
+    background: rgb(247 240 225 / 0.1);
+  }
+
+  .header__link[aria-current='page'] {
+    color: var(--cream);
+    box-shadow: inset 0 -3px 0 var(--oak);
+  }
+
+  /* The phone number lives in the header on desktop. On mobile it is
+     handled by the sticky bottom bar, where the thumb actually is. */
+  .header__call {
+    display: none;
+    align-items: center;
+    gap: var(--space-2xs);
+    min-height: var(--tap);
+    padding-inline: var(--space-s);
+    color: var(--cream);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: var(--step--1);
+    border: 1px solid rgb(247 240 225 / 0.35);
+    border-radius: var(--radius-m);
+  }
+
+  .header__call:hover {
+    color: var(--navy);
+    background: var(--cream);
+  }
+
+  @media (min-width: 48rem) {
+    .header__inner {
+      flex-wrap: nowrap;
+      padding-block: var(--space-s);
+    }
+
+    .header__logo {
+      font-size: 1.05rem;
+    }
+
+    .header__nav {
+      order: 0;
+      width: auto;
+      border-top: 0;
+      margin-inline-start: auto;
+      gap: var(--space-xs);
+    }
+
+    .header__link {
+      flex: 0 0 auto;
+      padding-inline: var(--space-s);
+    }
+
+    .header__call {
+      display: inline-flex;
+    }
+  }
+</style>

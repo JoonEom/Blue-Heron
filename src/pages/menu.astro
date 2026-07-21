@@ -1,0 +1,212 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import MenuIndex from '../components/MenuIndex.astro';
+import MenuSection from '../components/MenuSection.astro';
+import OpenNow from '../components/OpenNow.astro';
+import TodaySpecial from '../components/TodaySpecial.astro';
+import { foodImage } from '../lib/images.ts';
+import { getMenu } from '../lib/menu.ts';
+import { site } from '../data/site.ts';
+
+const sections = await getMenu();
+const categories = sections.map((s) => ({ id: s.id, title: s.title }));
+
+const cateringImg = foodImage('catering.jpeg');
+---
+
+<Base
+  title="Menu"
+  description="Handmade sandwiches, breakfast from 7 AM, daily soup-and-sandwich lunch specials, salads and espresso. Full menu with prices for Blue Heron in Magnolia, Seattle."
+>
+  <section class="menuHero">
+    <div class="container container--narrow">
+      <p class="eyebrow">Blue Heron</p>
+      <h1 class="menuHero__title">The Menu</h1>
+      <p class="menuHero__lede">
+        Everything is made to order. Breakfast starts at 7&nbsp;AM, and the
+        lunch special changes daily.
+      </p>
+
+      <div class="menuHero__meta">
+        <OpenNow />
+        {
+          site.features.driveThru && (
+            <p class="menuHero__badge">Drive-thru available</p>
+          )
+        }
+      </div>
+
+      {/* Hidden on phones: Call and Directions are already pinned in the
+          sticky bottom bar, one thumb-reach away. Repeating them here cost
+          a third of the first screen on a page whose job is showing food. */}
+      <div class="menuHero__actions">
+        <a class="btn btn--primary" href={`tel:${site.phone.href}`}>
+          Call to order · {site.phone.display}
+        </a>
+        <a
+          class="btn btn--secondary"
+          href={site.links.directions}
+          target="_blank"
+          rel="noopener"
+        >
+          Directions
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="menuToday">
+      <TodaySpecial />
+    </div>
+
+    <MenuIndex categories={categories} />
+
+    {sections.map((s) => <MenuSection {...s} />)}
+  </div>
+
+  <section class="catering" id="catering">
+    <div class="container catering__inner no-blowout">
+      <div class="catering__body">
+        <p class="eyebrow">Catering</p>
+        <h2 class="catering__title">Feeding a crowd?</h2>
+        <p class="catering__text">
+          Planning an event or a special gathering? Let us handle the food.
+          Our catering works for any occasion, with options to suit whatever
+          you need — office lunches, parties, family gatherings.
+        </p>
+        <p class="catering__text">
+          Give us a call and we'll build a menu around it.
+        </p>
+        <a class="btn btn--primary" href={`tel:${site.phone.href}`}>
+          Call for catering · {site.phone.display}
+        </a>
+      </div>
+
+      {
+        cateringImg && (
+          <div class="catering__img">
+            <Image
+              src={cateringImg}
+              alt="A catering platter of assorted sandwiches from Blue Heron"
+              width={760}
+              quality="mid"
+              loading="lazy"
+            />
+          </div>
+        )
+      }
+    </div>
+  </section>
+</Base>
+
+<style>
+  .menuHero {
+    background: linear-gradient(var(--sand), var(--cream));
+    padding-block: var(--space-l) var(--space-m);
+    text-align: center;
+  }
+
+  @media (min-width: 48rem) {
+    .menuHero {
+      padding-block: var(--space-2xl) var(--space-xl);
+    }
+  }
+
+  .menuHero__title {
+    font-size: var(--step-6);
+    margin-bottom: var(--space-xs);
+  }
+
+  .menuHero__lede {
+    max-width: 44ch;
+    margin-inline: auto;
+    color: var(--ink-soft);
+  }
+
+  .menuHero__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2xs) var(--space-s);
+    margin-top: var(--space-s);
+  }
+
+  .menuHero__badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border: 1px solid var(--oak);
+    border-radius: 100px;
+    font-size: var(--step--1);
+    font-weight: 600;
+    color: var(--oak-deep);
+  }
+
+  .menuHero__actions {
+    display: none;
+  }
+
+  @media (min-width: 48rem) {
+    .menuHero__actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-xs);
+      margin-top: var(--space-m);
+    }
+  }
+
+  .menuToday:not(:empty) {
+    padding-block: var(--space-m);
+  }
+
+  .catering {
+    margin-top: var(--space-2xl);
+    background: var(--navy);
+    color: var(--cream);
+  }
+
+  .catering__inner {
+    display: grid;
+    gap: var(--space-xl);
+    align-items: center;
+  }
+
+  .catering__title {
+    color: var(--cream);
+    font-size: var(--step-4);
+    margin-bottom: var(--space-s);
+  }
+
+  .catering :global(.eyebrow) {
+    color: var(--oak-light);
+  }
+
+  .catering__text {
+    max-width: 52ch;
+    margin-bottom: var(--space-s);
+    color: rgb(247 240 225 / 0.85);
+  }
+
+  .catering__img {
+    border-radius: var(--radius-l);
+    overflow: hidden;
+  }
+
+  .catering__img :global(img) {
+    width: 100%;
+    height: auto;
+  }
+
+  .catering .btn--primary {
+    margin-top: var(--space-2xs);
+  }
+
+  @media (min-width: 48rem) {
+    .catering__inner {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>
