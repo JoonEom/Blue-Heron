@@ -8,16 +8,13 @@ export default defineConfig({
 
   integrations: [sitemap()],
 
-  // The old site lived at /menu.html and /about.html. Those URLs are in
-  // Google's index and in people's bookmarks, so they must keep working.
-  // For a static build Astro emits a small redirect page for each, which
-  // works on Vercel and GitHub Pages alike. vercel.json additionally turns
-  // these into real 301s on the primary host.
-  redirects: {
-    '/index.html': '/',
-    '/menu.html': '/menu',
-    '/about.html': '/about',
-  },
+  // Legacy /menu.html and /about.html redirects live ONLY in vercel.json,
+  // deliberately. Two other approaches both break:
+  //   - Astro `redirects` + format:'directory' emits dist/menu.html/ as a
+  //     directory, colliding with the redirect file of the same name.
+  //   - A static public/menu.html shadows the real /menu page, because
+  //     static hosts resolve `menu.html` before `menu/index.html`.
+  // Vercel serves the custom domain, so its 301s cover the indexed URLs.
 
   image: {
     // Every <Image> gets a responsive srcset + sizes by default.
