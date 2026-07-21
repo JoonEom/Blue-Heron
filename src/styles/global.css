@@ -22,8 +22,9 @@ html {
      user's actual setting. */
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
-  /* Offset for the sticky category bar when jumping to an anchor */
-  scroll-padding-top: 5.5rem;
+  /* Small breathing room when jumping to an anchor. Nothing is sticky, so
+     this no longer has to clear a fixed bar. */
+  scroll-padding-top: 1.5rem;
 }
 
 body {

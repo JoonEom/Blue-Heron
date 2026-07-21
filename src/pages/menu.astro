@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
-import CategoryBar from '../components/CategoryBar.astro';
+import MenuIndex from '../components/MenuIndex.astro';
 import MenuSection from '../components/MenuSection.astro';
 import OpenNow from '../components/OpenNow.astro';
 import TodaySpecial from '../components/TodaySpecial.astro';
@@ -58,7 +58,7 @@ const cateringImg = foodImage('catering.jpeg');
       <TodaySpecial />
     </div>
 
-    <CategoryBar categories={categories} />
+    <MenuIndex categories={categories} />
 
     {sections.map((s) => <MenuSection {...s} />)}
   </div>
