@@ -51,14 +51,19 @@
   /* Fluid type scale. clamp() means no layout-shifting breakpoint
      jumps, and it still respects the user's browser font size
      because everything is rem-based. */
-  --step--1: clamp(0.83rem, 0.79rem + 0.19vw, 0.94rem);
+  /* Floor raised to 14px: the old 0.83rem floor rendered 13.3px on a phone,
+     which put ~50 elements per page under a comfortable reading size. */
+  --step--1: clamp(0.875rem, 0.85rem + 0.12vw, 0.95rem);
   --step-0: clamp(1rem, 0.95rem + 0.24vw, 1.13rem);
   --step-1: clamp(1.2rem, 1.13rem + 0.36vw, 1.41rem);
   --step-2: clamp(1.44rem, 1.34rem + 0.52vw, 1.76rem);
   --step-3: clamp(1.73rem, 1.58rem + 0.74vw, 2.2rem);
-  --step-4: clamp(2.07rem, 1.86rem + 1.05vw, 2.75rem);
-  --step-5: clamp(2.49rem, 2.18rem + 1.47vw, 3.43rem);
-  --step-6: clamp(2.99rem, 2.56rem + 2.03vw, 4.29rem);
+  /* Display sizes: the floors were tuned for desktop and were far too large
+     on a phone. --step-6 rendered at 48px on a 390px screen, pushing the
+     hours, phone number and photo below the fold. */
+  --step-4: clamp(1.8rem, 1.55rem + 1.15vw, 2.75rem);
+  --step-5: clamp(2rem, 1.6rem + 1.8vw, 3.43rem);
+  --step-6: clamp(2.3rem, 1.75rem + 2.4vw, 4.29rem);
 
   /* --- Space ------------------------------------------------
      One ratio-based scale so spacing stays consistent. */

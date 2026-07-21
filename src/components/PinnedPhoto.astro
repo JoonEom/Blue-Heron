@@ -15,8 +15,13 @@ interface Props {
   sizes?: string;
   /** Aspect ratio, e.g. "4 / 5". Omit to keep the photo's own. */
   ratio?: string;
+  /** object-position for the crop, e.g. "center 65%". Matters when a tall
+   *  photo is cropped short and the subject isn't in the middle. */
+  position?: string;
   class?: string;
   loading?: 'lazy' | 'eager';
+  /** Marks this as the page's LCP image: eager + fetchpriority=high. */
+  priority?: boolean;
 }
 
 const {
@@ -27,8 +32,10 @@ const {
   width = 640,
   sizes = '(min-width: 48rem) 40vw, 90vw',
   ratio,
+  position,
   class: className,
   loading = 'lazy',
+  priority = false,
 } = Astro.props;
 
 const img = placeImage(image);
@@ -38,7 +45,9 @@ const img = placeImage(image);
   img && (
     <figure
       class:list={['pinned', className]}
-      style={`--rotate:${rotate}deg;${ratio ? `--ratio:${ratio};` : ''}`}
+      style={`--rotate:${rotate}deg;${ratio ? `--ratio:${ratio};` : ''}${
+        position ? `--pos:${position};` : ''
+      }`}
     >
       <div class="pinned__frame">
         <span class="pinned__tack" aria-hidden="true" />
@@ -48,7 +57,8 @@ const img = placeImage(image);
           width={width}
           sizes={sizes}
           quality="mid"
-          loading={loading}
+          loading={priority ? undefined : loading}
+          priority={priority}
           class="pinned__img"
         />
         {/* Caption lives INSIDE the frame, on the photo's white border.
@@ -94,6 +104,7 @@ const img = placeImage(image);
     height: auto;
     aspect-ratio: var(--ratio, auto);
     object-fit: cover;
+    object-position: var(--pos, center);
     display: block;
   }
 

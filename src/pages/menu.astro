@@ -20,7 +20,7 @@ const cateringImg = foodImage('catering.jpeg');
   description="Handmade sandwiches, breakfast from 7 AM, daily soup-and-sandwich lunch specials, salads and espresso. Full menu with prices for Blue Heron in Magnolia, Seattle."
 >
   <section class="menuHero">
-    <div class="container">
+    <div class="container container--narrow">
       <p class="eyebrow">Blue Heron</p>
       <h1 class="menuHero__title">The Menu</h1>
       <p class="menuHero__lede">
@@ -37,6 +37,9 @@ const cateringImg = foodImage('catering.jpeg');
         }
       </div>
 
+      {/* Hidden on phones: Call and Directions are already pinned in the
+          sticky bottom bar, one thumb-reach away. Repeating them here cost
+          a third of the first screen on a page whose job is showing food. */}
       <div class="menuHero__actions">
         <a class="btn btn--primary" href={`tel:${site.phone.href}`}>
           Call to order · {site.phone.display}
@@ -101,8 +104,14 @@ const cateringImg = foodImage('catering.jpeg');
 <style>
   .menuHero {
     background: linear-gradient(var(--sand), var(--cream));
-    padding-block: var(--space-2xl) var(--space-xl);
+    padding-block: var(--space-l) var(--space-m);
     text-align: center;
+  }
+
+  @media (min-width: 48rem) {
+    .menuHero {
+      padding-block: var(--space-2xl) var(--space-xl);
+    }
   }
 
   .menuHero__title {
@@ -121,8 +130,8 @@ const cateringImg = foodImage('catering.jpeg');
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    gap: var(--space-s);
-    margin-top: var(--space-m);
+    gap: var(--space-2xs) var(--space-s);
+    margin-top: var(--space-s);
   }
 
   .menuHero__badge {
@@ -136,15 +145,21 @@ const cateringImg = foodImage('catering.jpeg');
   }
 
   .menuHero__actions {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: var(--space-xs);
-    margin-top: var(--space-m);
+    display: none;
+  }
+
+  @media (min-width: 48rem) {
+    .menuHero__actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-xs);
+      margin-top: var(--space-m);
+    }
   }
 
   .menuToday:not(:empty) {
-    padding-block: var(--space-l);
+    padding-block: var(--space-m);
   }
 
   .catering {

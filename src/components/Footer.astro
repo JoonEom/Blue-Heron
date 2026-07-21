@@ -238,7 +238,9 @@ const year = new Date().getFullYear();
   }
 
   .footer__cue {
-    display: block;
+    display: flex;
+    align-items: center;
+    min-height: var(--tap);
     margin-top: var(--space-3xs);
     color: var(--oak-light);
     font-weight: 600;
@@ -278,12 +280,14 @@ const year = new Date().getFullYear();
     text-decoration: underline;
   }
 
+  /* 44px, not 32px. On a phone these were the smallest targets on the
+     site and sit in the region most people reach with a thumb. */
   .footer__links a,
   .footer__address a,
   .footer__phone a {
     display: inline-flex;
     align-items: center;
-    min-height: 2rem;
+    min-height: var(--tap);
   }
 
   .footer__address a,
@@ -351,7 +355,7 @@ const year = new Date().getFullYear();
   .credit__links a {
     display: inline-flex;
     align-items: center;
-    min-height: 2.25rem;
+    min-height: var(--tap);
     color: var(--cream);
     text-decoration: underline;
     text-underline-offset: 0.25em;

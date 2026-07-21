@@ -27,13 +27,13 @@ const grace = placeImage('grace-kim.jpg')!;
           alt="Inside Blue Heron: checkerboard floor, hand-lettered menu boards over the deli counter, and orchids by the window"
           rotate={-3}
           ratio="4 / 3"
-          loading="eager"
+          priority
           sizes="(min-width: 62rem) 38vw, 90vw"
         />
         <PinnedPhoto
           class="collage__b"
           image="patio.jpg"
-          alt="The front steps of Blue Heron, lined with potted flowers"
+          alt="Customers sitting under a blue umbrella on the patio outside Blue Heron, beside pots of yellow flowers"
           rotate={4}
           ratio="1 / 1"
           sizes="(min-width: 62rem) 24vw, 60vw"
@@ -41,9 +41,10 @@ const grace = placeImage('grace-kim.jpg')!;
         <PinnedPhoto
           class="collage__c"
           image="flowers.jpg"
-          alt="Flowers in bloom outside the shop"
+          alt="Orchids and houseplants crowding the front window at Blue Heron, with the OPEN sign hanging in the glass and Magnolia beyond"
           rotate={-6}
           ratio="3 / 4"
+          position="center 70%"
           sizes="(min-width: 62rem) 22vw, 55vw"
         />
       </div>
@@ -207,9 +208,17 @@ const grace = placeImage('grace-kim.jpg')!;
     font-size: var(--step-6);
   }
 
+  /* On a phone the tilt and overlap are switched off, so three stacked
+     full-bleed photos was just ~1800px of scrolling. This packs them into a
+     cluster instead: the wide one on top, the other two side by side. */
   .collage {
     display: grid;
-    gap: var(--space-l);
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-s);
+  }
+
+  :global(.collage__a) {
+    grid-column: 1 / -1;
   }
 
   @media (min-width: 62rem) {

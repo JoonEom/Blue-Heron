@@ -27,7 +27,11 @@ export default defineConfig({
     // Emit /menu/index.html rather than /menu.html so URLs work identically
     // on Vercel and GitHub Pages without per-host rewrite rules.
     format: 'directory',
-    inlineStylesheets: 'auto',
+    /* 'always' rather than 'auto': the whole site's CSS is ~18KB, and
+       inlining it removes a render-blocking request. Most visitors arrive
+       on one page from a phone search, so first-load speed beats the
+       cross-page caching that an external stylesheet would buy. */
+    inlineStylesheets: 'always',
   },
 
   // No client-side router, no framework, no hydration: every page is static

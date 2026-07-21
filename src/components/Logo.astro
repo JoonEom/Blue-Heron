@@ -47,14 +47,25 @@ const { variant = 'full', class: className } = Astro.props;
     font-variation-settings: 'SOFT' 40, 'WONK' 1;
   }
 
+  /* Hidden on phones: at 0.62em of a 0.9rem parent this rendered 8.9px,
+     which is not readable at arm's length. "Blue Heron" alone carries the
+     header there, and the tagline is repeated in full in the footer. */
   .logo__tagline {
+    display: none;
     font-family: var(--font-body);
-    font-size: 0.62em;
+    /* Floor in rem so it can't shrink below ~11.5px wherever it is used. */
+    font-size: max(0.68em, 0.72rem);
     font-weight: 600;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    opacity: 0.75;
+    opacity: 0.8;
     margin-top: 0.35em;
+  }
+
+  @media (min-width: 34rem) {
+    .logo__tagline {
+      display: block;
+    }
   }
 
   .logo--compact :global(.logo__mark) {
