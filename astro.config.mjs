@@ -4,7 +4,11 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://blueheronmagnolia.com',
+  // Must match the host that actually serves the site. Vercel redirects the
+  // apex to www, so building canonical/sitemap/OG URLs on the apex made every
+  // one of them a 308. Social scrapers in particular do not all follow a
+  // redirect on og:image.
+  site: 'https://www.blueheronmagnolia.com',
 
   integrations: [sitemap()],
 
