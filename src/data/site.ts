@@ -16,7 +16,8 @@ export const site = {
   founded: 2005,
   owner: 'Grace Kim',
   neighborhood: 'Magnolia',
-  url: 'https://blueheronmagnolia.com',
+  /** Canonical host. Vercel redirects the apex here. */
+  url: 'https://www.blueheronmagnolia.com',
 
   phone: {
     /** E.164 format — used for the tel: link. */

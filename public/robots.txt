@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://blueheronmagnolia.com/sitemap-index.xml
+Sitemap: https://www.blueheronmagnolia.com/sitemap-index.xml
