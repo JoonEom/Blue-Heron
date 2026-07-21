@@ -1,0 +1,389 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import PinnedPhoto from '../components/PinnedPhoto.astro';
+import { placeImage } from '../lib/images.ts';
+import { site } from '../data/site.ts';
+
+const grace = placeImage('grace-kim.jpg')!;
+---
+
+<Base
+  title="Our Story"
+  description={`Blue Heron has been a Magnolia corner shop since ${site.founded}. Owner Grace Kim on handmade sandwiches, neighborhood regulars, and the poster wall that keeps the community posted.`}
+>
+  <!-- ============ Header collage ============ -->
+  <section class="storyHero">
+    <div class="container">
+      <div class="storyHero__head">
+        <p class="eyebrow">Since {site.founded} · {site.neighborhood}, Seattle</p>
+        <h1 class="storyHero__title">Every bite<br class="br-wide" />tells a story.</h1>
+      </div>
+
+      <div class="collage no-blowout">
+        <PinnedPhoto
+          class="collage__a"
+          image="interior.jpg"
+          alt="Inside Blue Heron: checkerboard floor, hand-lettered menu boards over the deli counter, and orchids by the window"
+          rotate={-3}
+          ratio="4 / 3"
+          loading="eager"
+          sizes="(min-width: 62rem) 38vw, 90vw"
+        />
+        <PinnedPhoto
+          class="collage__b"
+          image="patio.jpg"
+          alt="The front steps of Blue Heron, lined with potted flowers"
+          rotate={4}
+          ratio="1 / 1"
+          sizes="(min-width: 62rem) 24vw, 60vw"
+        />
+        <PinnedPhoto
+          class="collage__c"
+          image="flowers.jpg"
+          alt="Flowers in bloom outside the shop"
+          rotate={-6}
+          ratio="3 / 4"
+          sizes="(min-width: 62rem) 22vw, 55vw"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ The story ============ -->
+  <section class="chapter">
+    <div class="container container--narrow flow">
+      <p class="eyebrow">Our story</p>
+      <h2 class="section-title">It started in {site.founded}</h2>
+      <hr class="rule" />
+      <p class="lede">
+        Blue Heron began with a simple idea: bring the right balance of
+        flavor, freshness, and warmth to every meal.
+      </p>
+      <p>
+        It was founded by {site.owner}, whose love of food has always been
+        rooted in a deep appreciation for the art of the handmade sandwich.
+        Grace spent years perfecting her craft, drawing on family recipes and
+        a preference for fresh, locally sourced ingredients. Each sandwich is
+        put together with a commitment to quality — a taste that feels both
+        nostalgic and entirely new.
+      </p>
+      <p>
+        From the very beginning, Blue Heron has been more than a restaurant.
+        It's a community hub, a place where people come together, eat well,
+        and make the kind of memories that stick.
+      </p>
+      <p class="closer">We invite you to be a part of ours.</p>
+    </div>
+  </section>
+
+  <!-- ============ Community / the poster wall ============ -->
+  <section class="community">
+    <div class="container community__inner no-blowout">
+      <div class="community__body flow">
+        <p class="eyebrow">Community</p>
+        <h2 class="section-title">The wall by the window</h2>
+        <hr class="rule" />
+        <p>
+          Blue Heron is a corner store in Magnolia that works as a local hub
+          for the neighborhood. Every week the posters change — concerts, art
+          galleries, theatre, whatever is happening around town. The shop has
+          hosted live performances of its own, which has a way of turning a
+          sandwich place into a gathering place.
+        </p>
+        <p>
+          If you want to know what's on this week, the wall knows before the
+          internet does.
+        </p>
+        <p>
+          <a
+            class="btn btn--secondary"
+            href={site.links.pressArticle}
+            target="_blank"
+            rel="noopener"
+          >
+            Read the {site.links.pressOutlet} feature
+          </a>
+        </p>
+      </div>
+
+      <div class="community__photos no-blowout">
+        <PinnedPhoto
+          class="community__wall"
+          image="poster-wall.jpg"
+          alt="The community poster wall at Blue Heron: flyers for local theatre, art walks, farmers markets and concerts covering a deep green wall above a wooden booth"
+          rotate={2}
+          ratio="3 / 4"
+          width={760}
+          sizes="(min-width: 62rem) 34vw, 85vw"
+        />
+        <PinnedPhoto
+          class="community__band"
+          image="band.jpg"
+          alt="A band performing live inside Blue Heron for the neighborhood"
+          rotate={-5}
+          ratio="4 / 3"
+          width={520}
+          sizes="(min-width: 62rem) 22vw, 60vw"
+          caption="Live music, in a sandwich shop."
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ The owner ============ -->
+  <section class="owner">
+    <div class="container owner__inner no-blowout">
+      <div class="owner__portrait">
+        <Image
+          src={grace}
+          alt={`${site.owner}, owner of Blue Heron, at the shop`}
+          width={620}
+          sizes="(min-width: 48rem) 34vw, 80vw"
+          quality="mid"
+          loading="lazy"
+          class="owner__img"
+        />
+      </div>
+
+      <div class="owner__body">
+        <p class="eyebrow">Meet the owner</p>
+        <h2 class="section-title">{site.owner}</h2>
+        <hr class="rule" />
+        <blockquote class="owner__quote">
+          <p>
+            Since {site.founded}, we have always tried our best to allow
+            customers to make Blue Heron feel like home, not just a place to
+            eat. Being in the heart of Magnolia, there are many customers who
+            stop by for a bite to eat and also those who have been coming in
+            for many years.
+          </p>
+          <p>
+            One thing I want all of my customers to feel when they walk in is
+            a sense of comfort and family. From the neighborhood regulars to
+            the fishermen that visit from afar, I want all of them to come in
+            knowing that they're always welcome at Blue Heron.
+          </p>
+          <footer>— {site.owner}</footer>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Come in ============ -->
+  <section class="visit">
+    <div class="container visit__inner">
+      <h2 class="visit__title">Come sit down.</h2>
+      <p class="visit__text">
+        {site.address.street}, {site.address.city} · Open weekdays 7 AM to 3 PM
+      </p>
+      <div class="visit__actions">
+        <a class="btn btn--onNavy" href="/menu">See the menu</a>
+        <a
+          class="btn btn--onNavy"
+          href={site.links.directions}
+          target="_blank"
+          rel="noopener">Directions</a
+        >
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* ---------- Header collage ---------- */
+  .storyHero {
+    background: linear-gradient(var(--sand), var(--cream));
+    padding-block: var(--space-2xl) var(--space-3xl);
+    overflow: hidden;
+  }
+
+  .storyHero__head {
+    text-align: center;
+    margin-bottom: var(--space-2xl);
+  }
+
+  .storyHero__title {
+    font-size: var(--step-6);
+  }
+
+  .collage {
+    display: grid;
+    gap: var(--space-l);
+  }
+
+  @media (min-width: 62rem) {
+    .collage {
+      grid-template-columns: repeat(12, 1fr);
+      align-items: start;
+      gap: 0;
+      /* Room for the overlaps to breathe. */
+      padding-block: var(--space-l);
+    }
+
+    :global(.collage__a) {
+      grid-column: 1 / span 6;
+      grid-row: 1;
+      z-index: 1;
+    }
+
+    :global(.collage__b) {
+      grid-column: 6 / span 4;
+      grid-row: 1;
+      margin-top: 5rem;
+      z-index: 3;
+    }
+
+    :global(.collage__c) {
+      grid-column: 9 / span 4;
+      grid-row: 1;
+      margin-top: -1.5rem;
+      z-index: 2;
+    }
+  }
+
+  /* ---------- Story ---------- */
+  .chapter {
+    padding-block: var(--space-3xl);
+  }
+
+  .lede {
+    font-family: var(--font-display);
+    font-size: var(--step-2);
+    line-height: 1.35;
+    color: var(--navy);
+  }
+
+  .closer {
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    color: var(--oak-deep);
+    --flow-space: var(--space-l);
+  }
+
+  /* ---------- Community ---------- */
+  .community {
+    background: var(--sand);
+  }
+
+  .community__inner {
+    display: grid;
+    gap: var(--space-2xl);
+    align-items: center;
+  }
+
+  @media (min-width: 62rem) {
+    .community__inner {
+      grid-template-columns: 1fr 1.1fr;
+    }
+  }
+
+  .community__photos {
+    display: grid;
+    gap: var(--space-l);
+  }
+
+  @media (min-width: 62rem) {
+    .community__photos {
+      grid-template-columns: repeat(6, 1fr);
+      gap: 0;
+    }
+
+    :global(.community__wall) {
+      grid-column: 1 / span 4;
+      grid-row: 1;
+      z-index: 1;
+    }
+
+    :global(.community__band) {
+      grid-column: 4 / span 3;
+      grid-row: 1;
+      /* Sits low against the poster wall for the overlap, but stays inside
+         the section so its caption isn't clipped by the band edge. */
+      align-self: center;
+      margin-top: 6rem;
+      z-index: 2;
+    }
+  }
+
+  /* ---------- Owner ---------- */
+  .owner {
+    padding-block: var(--space-3xl);
+  }
+
+  .owner__inner {
+    display: grid;
+    gap: var(--space-xl);
+    align-items: center;
+  }
+
+  @media (min-width: 48rem) {
+    .owner__inner {
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: var(--space-2xl);
+    }
+  }
+
+  .owner__portrait {
+    border-radius: var(--radius-l);
+    overflow: hidden;
+    box-shadow: var(--shadow-m);
+  }
+
+  .owner :global(.owner__img) {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+  }
+
+  .owner__quote {
+    margin: 0;
+    padding-inline-start: var(--space-m);
+    border-inline-start: 3px solid var(--oak);
+  }
+
+  .owner__quote p {
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    line-height: 1.45;
+    color: var(--navy);
+  }
+
+  .owner__quote p + p {
+    margin-top: var(--space-s);
+  }
+
+  .owner__quote footer {
+    margin-top: var(--space-s);
+    font-family: var(--font-body);
+    font-size: var(--step--1);
+    font-weight: 600;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- Visit ---------- */
+  .visit {
+    background: var(--navy);
+    color: var(--cream);
+    text-align: center;
+  }
+
+  .visit__title {
+    color: var(--cream);
+    font-size: var(--step-4);
+  }
+
+  .visit__text {
+    margin-top: var(--space-s);
+    color: rgb(247 240 225 / 0.85);
+  }
+
+  .visit__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-xs);
+    margin-top: var(--space-l);
+  }
+</style>

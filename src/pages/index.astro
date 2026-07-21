@@ -1,0 +1,544 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import OpenNow from '../components/OpenNow.astro';
+import { foodImage, placeImage } from '../lib/images.ts';
+import {
+  site,
+  summarizeHours,
+  fullAddress,
+} from '../data/site.ts';
+
+const storefront = placeImage('storefront.jpg')!;
+const interior = placeImage('interior.jpg')!;
+const posterWall = placeImage('poster-wall.jpg')!;
+
+const sections = (await getCollection('menu')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+const featured = sections
+  .flatMap((s) => s.data.items ?? [])
+  .filter((i) => i.featured);
+
+const hoursSummary = summarizeHours();
+---
+
+<Base
+  isHome
+  title="Home"
+  description={site.shortDescription}
+>
+  <!-- ============ Hero ============ -->
+  <section class="hero">
+    <div class="container hero__inner no-blowout">
+      <div class="hero__text">
+        <p class="eyebrow">{site.neighborhood}, Seattle · Since {site.founded}</p>
+        <h1 class="hero__title">Sandwiches, soup,<br class="br-wide" />and good coffee.</h1>
+        <p class="hero__lede">
+          A corner sandwich and coffee house in Magnolia. Everything made to
+          order, the way it has been since {site.founded}.
+        </p>
+
+        <OpenNow class="hero__openNow" />
+
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="/menu">See the menu</a>
+          <a class="btn btn--secondary" href={`tel:${site.phone.href}`}>
+            Call {site.phone.display}
+          </a>
+        </div>
+
+        {
+          site.features.driveThru && (
+            <p class="hero__driveThru">
+              <strong>Drive-thru</strong> — order without leaving the car.
+            </p>
+          )
+        }
+      </div>
+
+      <div class="hero__media">
+        <Image
+          src={storefront}
+          alt="The Blue Heron corner building on Gilman Ave W, with its brown awning and flower pots by the front steps"
+          width={900}
+          sizes="(min-width: 62rem) 45vw, 100vw"
+          quality="mid"
+          priority
+          class="hero__img"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ The four questions ============ -->
+  <section class="facts" aria-label="Visiting Blue Heron">
+    <div class="container facts__grid no-blowout">
+      <div class="fact">
+        <h2 class="fact__label">Hours</h2>
+        <dl class="fact__hours">
+          {
+            hoursSummary.map((g) => (
+              <div class="fact__hoursRow">
+                <dt>{g.days}</dt>
+                <dd>{g.time}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+
+      <div class="fact">
+        <h2 class="fact__label">Find us</h2>
+        <p class="fact__big">
+          <a href={site.links.directions} target="_blank" rel="noopener">
+            {site.address.street}
+          </a>
+        </p>
+        <p class="fact__sub">
+          {site.address.city}, {site.address.region} {site.address.postalCode}
+        </p>
+        <p class="fact__cue">
+          <a href={site.links.directions} target="_blank" rel="noopener">
+            Get directions →
+          </a>
+        </p>
+      </div>
+
+      <div class="fact">
+        <h2 class="fact__label">Call</h2>
+        <p class="fact__big">
+          <a href={`tel:${site.phone.href}`}>{site.phone.display}</a>
+        </p>
+        <p class="fact__sub">Call ahead and it'll be ready.</p>
+        <p class="fact__cue">
+          <a href={`tel:${site.phone.href}`}>Tap to call →</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Best sellers ============ -->
+  <section class="sellers">
+    <div class="container">
+      <p class="eyebrow">What people order</p>
+      <h2 class="section-title">The ones we're known for</h2>
+      <hr class="rule" />
+
+      <ul class="sellers__grid no-blowout">
+        {
+          featured.map((item) => {
+            const img = foodImage(item.image);
+            return (
+              <li class="seller">
+                {img && (
+                  <div class="seller__img">
+                    <Image
+                      src={img}
+                      alt={`${item.name} — ${item.ingredients}`}
+                      width={700}
+                      sizes="(min-width: 48rem) 45vw, 100vw"
+                      quality="mid"
+                      loading="lazy"
+                    />
+                  </div>
+                )}
+                <div class="seller__body">
+                  <h3 class="seller__name">{item.name}</h3>
+                  {item.press && (
+                    <p class="seller__press">
+                      Featured in {site.links.pressOutlet}
+                    </p>
+                  )}
+                  <p class="seller__ingredients">{item.ingredients}</p>
+                  <p class="seller__price">
+                    {item.prices
+                      ?.map(
+                        (p) =>
+                          `${p.label ? p.label + ' ' : ''}$${p.amount.toFixed(2)}`
+                      )
+                      .join(' · ')}
+                  </p>
+                </div>
+              </li>
+            );
+          })
+        }
+      </ul>
+
+      <p class="sellers__more">
+        <a class="btn btn--primary" href="/menu">See the full menu</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ Story teaser ============ -->
+  <section class="story">
+    <div class="container story__inner no-blowout">
+      <div class="story__media">
+        <Image
+          src={posterWall}
+          alt="The community poster wall at Blue Heron, covered with flyers for local theatre, art walks and neighborhood concerts, above a wooden booth"
+          width={700}
+          sizes="(min-width: 48rem) 45vw, 100vw"
+          quality="mid"
+          loading="lazy"
+          class="story__img"
+        />
+      </div>
+
+      <div class="story__body">
+        <p class="eyebrow">Our story</p>
+        <h2 class="section-title">More than a sandwich shop</h2>
+        <p class="story__text">
+          Grace Kim opened Blue Heron in {site.founded}. Since then the wall by
+          the window has filled with flyers for neighborhood theatre, art
+          walks, and concerts — swapped out every week. The shop has hosted
+          live music of its own.
+        </p>
+        <blockquote class="story__quote">
+          <p>
+            From the neighborhood regulars to the fishermen that visit from
+            afar, I want all of them to come in knowing that they're always
+            welcome at Blue Heron.
+          </p>
+          <footer>— {site.owner}, owner</footer>
+        </blockquote>
+        <p>
+          <a class="btn btn--secondary" href="/about">Read the story</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Interior ============ -->
+  <section class="room">
+    <div class="container">
+      <Image
+        src={interior}
+        alt="Inside Blue Heron: a black and white checkerboard floor, hand-lettered menu boards above the deli counter, and orchids along the window"
+        width={1200}
+        sizes="100vw"
+        quality="mid"
+        loading="lazy"
+        class="room__img"
+      />
+      <p class="room__caption">
+        Checkerboard floors, hand-lettered boards, and a lot of plants.
+        Come sit down.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* ---------- Hero ---------- */
+  .hero {
+    background: linear-gradient(var(--sand), var(--cream));
+    padding-block: var(--space-xl) var(--space-2xl);
+  }
+
+  .hero__inner {
+    display: grid;
+    gap: var(--space-xl);
+    align-items: center;
+  }
+
+  .hero__title {
+    font-size: var(--step-6);
+    margin-block: var(--space-2xs) var(--space-s);
+  }
+
+  .hero__lede {
+    max-width: 40ch;
+    font-size: var(--step-1);
+    color: var(--ink-soft);
+  }
+
+  .hero__openNow {
+    margin-top: var(--space-m);
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-top: var(--space-m);
+  }
+
+  .hero__driveThru {
+    margin-top: var(--space-m);
+    padding-top: var(--space-m);
+    border-top: 1px solid var(--oak);
+    font-size: var(--step--1);
+    color: var(--ink-soft);
+    max-width: 34ch;
+  }
+
+  .hero__driveThru strong {
+    color: var(--navy);
+  }
+
+  .hero__media {
+    border-radius: var(--radius-l);
+    overflow: hidden;
+    box-shadow: var(--shadow-l);
+  }
+
+  .hero :global(.hero__img) {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    object-position: center 60%;
+  }
+
+  @media (min-width: 62rem) {
+    .hero__inner {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-2xl);
+    }
+    .hero :global(.hero__img) {
+      aspect-ratio: 4 / 5;
+    }
+  }
+
+  /* ---------- Facts ---------- */
+  .facts {
+    background: var(--navy);
+    color: var(--cream);
+    padding-block: var(--space-xl);
+  }
+
+  .facts__grid {
+    display: grid;
+    gap: var(--space-l);
+  }
+
+  @media (min-width: 48rem) {
+    .facts__grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-2xl);
+    }
+  }
+
+  .fact + .fact {
+    padding-top: var(--space-l);
+    border-top: 1px solid rgb(247 240 225 / 0.18);
+  }
+
+  @media (min-width: 48rem) {
+    .fact + .fact {
+      padding-top: 0;
+      border-top: 0;
+      border-inline-start: 1px solid rgb(247 240 225 / 0.18);
+      padding-inline-start: var(--space-l);
+    }
+  }
+
+  .fact__label {
+    font-family: var(--font-body);
+    font-size: var(--step--1);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--oak-light);
+    margin-bottom: var(--space-xs);
+  }
+
+  .fact__hours {
+    margin: 0;
+    display: grid;
+    gap: 0.2rem;
+  }
+
+  .fact__hoursRow {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-s);
+    max-width: 20rem;
+  }
+
+  .fact__hoursRow dt {
+    color: rgb(247 240 225 / 0.8);
+  }
+
+  .fact__hoursRow dd {
+    margin: 0;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .fact__big {
+    font-family: var(--font-display);
+    font-size: var(--step-2);
+    line-height: 1.2;
+  }
+
+  .fact__sub {
+    color: rgb(247 240 225 / 0.75);
+    font-size: var(--step--1);
+    margin-top: var(--space-3xs);
+  }
+
+  .fact__cue {
+    margin-top: var(--space-xs);
+    font-size: var(--step--1);
+    font-weight: 600;
+  }
+
+  .facts a {
+    color: var(--cream);
+    text-decoration: none;
+  }
+
+  .facts a:hover {
+    text-decoration: underline;
+  }
+
+  .fact__cue a {
+    color: var(--oak-light);
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.25rem;
+  }
+
+  /* ---------- Best sellers ---------- */
+  .sellers__grid {
+    display: grid;
+    gap: var(--space-l);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  @media (min-width: 48rem) {
+    .sellers__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-xl);
+    }
+  }
+
+  .seller {
+    background: var(--paper);
+    border-radius: var(--radius-l);
+    overflow: hidden;
+    box-shadow: var(--shadow-s);
+  }
+
+  .seller__img :global(img) {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+  }
+
+  .seller__body {
+    padding: var(--space-m);
+  }
+
+  .seller__name {
+    font-size: var(--step-2);
+  }
+
+  .seller__press {
+    margin-top: var(--space-3xs);
+    font-size: var(--step--1);
+    font-weight: 600;
+    color: var(--oak-deep);
+  }
+
+  .seller__ingredients {
+    margin-top: var(--space-2xs);
+    color: var(--ink-soft);
+    font-size: var(--step--1);
+  }
+
+  .seller__price {
+    margin-top: var(--space-s);
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    color: var(--navy);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .sellers__more {
+    margin-top: var(--space-xl);
+    text-align: center;
+  }
+
+  /* ---------- Story ---------- */
+  .story {
+    background: var(--sand);
+  }
+
+  .story__inner {
+    display: grid;
+    gap: var(--space-xl);
+    align-items: center;
+  }
+
+  @media (min-width: 48rem) {
+    .story__inner {
+      grid-template-columns: 1fr 1.1fr;
+      gap: var(--space-2xl);
+    }
+  }
+
+  .story__media {
+    border-radius: var(--radius-l);
+    overflow: hidden;
+    box-shadow: var(--shadow-m);
+  }
+
+  .story :global(.story__img) {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+  }
+
+  .story__text {
+    max-width: 52ch;
+    color: var(--ink-soft);
+  }
+
+  .story__quote {
+    margin: var(--space-m) 0;
+    padding-inline-start: var(--space-m);
+    border-inline-start: 3px solid var(--oak);
+  }
+
+  .story__quote p {
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    line-height: 1.4;
+    color: var(--navy);
+  }
+
+  .story__quote footer {
+    margin-top: var(--space-2xs);
+    font-size: var(--step--1);
+    color: var(--ink-soft);
+  }
+
+  /* ---------- Room ---------- */
+  .room {
+    padding-bottom: var(--space-3xl);
+  }
+
+  .room :global(.room__img) {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: var(--radius-l);
+  }
+
+  .room__caption {
+    margin-top: var(--space-s);
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: var(--step--1);
+  }
+</style>

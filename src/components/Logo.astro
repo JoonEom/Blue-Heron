@@ -1,0 +1,63 @@
+---
+import HeronMark from './HeronMark.astro';
+import { site } from '../data/site.ts';
+
+interface Props {
+  /** `full` shows the tagline line underneath; `compact` hides it. */
+  variant?: 'full' | 'compact';
+  class?: string;
+}
+
+const { variant = 'full', class: className } = Astro.props;
+---
+
+<span class:list={['logo', `logo--${variant}`, className]}>
+  <HeronMark class="logo__mark" />
+  <span class="logo__type">
+    <span class="logo__name">{site.name}</span>
+    {variant === 'full' && <span class="logo__tagline">{site.tagline}</span>}
+  </span>
+</span>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6em;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .logo__mark {
+    width: 2.6em;
+    flex-shrink: 0;
+  }
+
+  .logo__type {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.05;
+  }
+
+  .logo__name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.35em;
+    letter-spacing: 0.01em;
+    font-variation-settings: 'SOFT' 40, 'WONK' 1;
+  }
+
+  .logo__tagline {
+    font-family: var(--font-body);
+    font-size: 0.62em;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.75;
+    margin-top: 0.35em;
+  }
+
+  .logo--compact .logo__mark {
+    width: 2.1em;
+  }
+</style>

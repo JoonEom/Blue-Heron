@@ -1,0 +1,217 @@
+---
+import { Image } from 'astro:assets';
+import { foodImage } from '../lib/images.ts';
+import { site } from '../data/site.ts';
+
+interface Price {
+  label?: string;
+  amount: number;
+}
+
+interface Props {
+  name: string;
+  image?: string;
+  ingredients?: string;
+  prices?: Price[];
+  variants?: string[];
+  press?: boolean;
+  vegetarian?: boolean;
+}
+
+const { name, image, ingredients, prices, variants, press, vegetarian } =
+  Astro.props;
+
+const img = foodImage(image);
+
+/** Alt text describes the dish, replacing 30 copies of alt="food img". */
+const alt = ingredients
+  ? `${name} — ${ingredients.replace(/\.$/, '')}`
+  : name;
+
+const money = (n: number) =>
+  n.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+---
+
+<li class="item">
+  {
+    img && (
+      <div class="item__thumb">
+        <Image
+          src={img}
+          alt={alt}
+          width={96}
+          height={96}
+          fit="cover"
+          position="center"
+          quality="mid"
+          loading="lazy"
+          {/* Thumbnails are always 96px on screen, so a fixed 1x/2x pair is
+              all that's needed — no point generating a full srcset. */}
+          layout="fixed"
+        />
+      </div>
+    )
+  }
+
+  <div class="item__body">
+    <div class="item__head">
+      <h3 class="item__name">
+        {name}
+        {vegetarian && <span class="item__tag" title="Vegetarian">veg</span>}
+      </h3>
+
+      {
+        prices && prices.length > 0 && (
+          <p class="item__prices">
+            {prices.map((p) => (
+              <span class="item__price">
+                {p.label && <span class="item__priceLabel">{p.label}</span>}
+                <span class="item__priceAmount">{money(p.amount)}</span>
+              </span>
+            ))}
+          </p>
+        )
+      }
+    </div>
+
+    {ingredients && <p class="item__ingredients">{ingredients}</p>}
+
+    {
+      variants && (
+        <ol class="item__variants">
+          {variants.map((v) => (
+            <li>{v}</li>
+          ))}
+        </ol>
+      )
+    }
+
+    {
+      press && (
+        <p class="item__press">
+          <a href={site.links.pressArticle} target="_blank" rel="noopener">
+            As seen in {site.links.pressOutlet} →
+          </a>
+        </p>
+      )
+    }
+  </div>
+</li>
+
+<style>
+  .item {
+    display: flex;
+    gap: var(--space-s);
+    padding-block: var(--space-m);
+    border-top: 1px solid var(--sand);
+  }
+
+  .item__thumb {
+    flex-shrink: 0;
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: var(--radius-m);
+    overflow: hidden;
+    background: var(--sand);
+  }
+
+  .item__thumb :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .item__body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .item__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-s);
+    flex-wrap: wrap;
+  }
+
+  .item__name {
+    font-size: var(--step-1);
+    font-weight: 600;
+    line-height: 1.25;
+    display: flex;
+    align-items: baseline;
+    gap: 0.5em;
+  }
+
+  .item__tag {
+    font-family: var(--font-body);
+    font-size: 0.6em;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--oak-deep);
+    border: 1px solid var(--oak);
+    border-radius: 100px;
+    padding: 0.15em 0.5em;
+    white-space: nowrap;
+  }
+
+  .item__prices {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.9rem;
+    margin-inline-start: auto;
+  }
+
+  .item__price {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.35em;
+    white-space: nowrap;
+  }
+
+  .item__priceLabel {
+    font-size: var(--step--1);
+    color: var(--ink-soft);
+  }
+
+  .item__priceAmount {
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    font-weight: 600;
+    color: var(--navy);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .item__ingredients {
+    margin-top: var(--space-3xs);
+    max-width: 60ch;
+    font-size: var(--step--1);
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+
+  .item__variants {
+    margin: var(--space-2xs) 0 0;
+    padding-inline-start: 1.2em;
+    font-size: var(--step--1);
+    color: var(--ink-soft);
+  }
+
+  .item__variants li {
+    padding-block: 0.1rem;
+  }
+
+  .item__press {
+    margin-top: var(--space-2xs);
+    font-size: var(--step--1);
+    font-weight: 600;
+  }
+
+  @media (min-width: 34rem) {
+    .item__thumb {
+      width: 5.5rem;
+      height: 5.5rem;
+    }
+  }
+</style>

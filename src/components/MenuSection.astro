@@ -1,0 +1,186 @@
+---
+import { Image } from 'astro:assets';
+import MenuItem from './MenuItem.astro';
+import { foodImage } from '../lib/images.ts';
+
+interface BuilderGroup {
+  label: string;
+  options: string;
+}
+
+interface Props {
+  id: string;
+  title: string;
+  blurb?: string;
+  note?: string;
+  image?: string;
+  items?: any[];
+  builder?: BuilderGroup[];
+}
+
+const { id, title, blurb, note, image, items, builder } = Astro.props;
+const sectionImg = foodImage(image);
+---
+
+<section class="menuSection" id={id} aria-labelledby={`${id}-title`}>
+  <header class="menuSection__head">
+    <h2 class="menuSection__title" id={`${id}-title`}>{title}</h2>
+    {blurb && <p class="menuSection__blurb">{blurb}</p>}
+    {note && <p class="menuSection__note">{note}</p>}
+  </header>
+
+  {
+    items && items.length > 0 && (
+      <ul class="menuSection__items">
+        {items.map((item) => (
+          <MenuItem {...item} />
+        ))}
+      </ul>
+    )
+  }
+
+  {
+    builder && (
+      <div class="builder no-blowout">
+        <dl class="builder__groups">
+          {builder.map((g) => (
+            <div class="builder__group">
+              <dt>{g.label}</dt>
+              <dd>{g.options}</dd>
+            </div>
+          ))}
+        </dl>
+        {sectionImg && (
+          <div class="builder__img">
+            <Image
+              src={sectionImg}
+              alt="Fresh-baked bread on the counter at Blue Heron"
+              width={640}
+              quality="mid"
+              loading="lazy"
+            />
+          </div>
+        )}
+      </div>
+    )
+  }
+
+  {
+    sectionImg && !builder && (
+      <div class="menuSection__img">
+        <Image
+          src={sectionImg}
+          alt={`${title} at Blue Heron`}
+          width={800}
+          quality="mid"
+          loading="lazy"
+        />
+      </div>
+    )
+  }
+</section>
+
+<style>
+  .menuSection {
+    padding-block: var(--space-xl) 0;
+    scroll-margin-top: 5rem;
+  }
+
+  .menuSection__head {
+    margin-bottom: var(--space-s);
+  }
+
+  .menuSection__title {
+    font-size: var(--step-3);
+  }
+
+  .menuSection__blurb {
+    margin-top: var(--space-3xs);
+    color: var(--ink-soft);
+    font-size: var(--step-0);
+  }
+
+  .menuSection__note {
+    margin-top: var(--space-2xs);
+    display: inline-block;
+    padding: 0.3rem 0.75rem;
+    background: var(--sand);
+    border-radius: var(--radius-s);
+    font-size: var(--step--1);
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .menuSection__items {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid var(--sand);
+  }
+
+  .menuSection__img {
+    margin-top: var(--space-m);
+    border-radius: var(--radius-l);
+    overflow: hidden;
+  }
+
+  .menuSection__img :global(img) {
+    width: 100%;
+    height: auto;
+  }
+
+  /* Build-your-own */
+  .builder {
+    display: grid;
+    gap: var(--space-l);
+    margin-top: var(--space-s);
+  }
+
+  .builder__groups {
+    margin: 0;
+    display: grid;
+    gap: 0;
+  }
+
+  .builder__group {
+    display: grid;
+    grid-template-columns: 6.5rem 1fr;
+    gap: var(--space-s);
+    padding-block: var(--space-s);
+    border-top: 1px solid var(--sand);
+  }
+
+  .builder__group:last-child {
+    border-bottom: 1px solid var(--sand);
+  }
+
+  .builder__group dt {
+    font-family: var(--font-display);
+    font-size: var(--step-0);
+    font-weight: 600;
+    color: var(--navy);
+  }
+
+  .builder__group dd {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: var(--step-0);
+  }
+
+  .builder__img {
+    border-radius: var(--radius-l);
+    overflow: hidden;
+  }
+
+  .builder__img :global(img) {
+    width: 100%;
+    height: auto;
+  }
+
+  @media (min-width: 48rem) {
+    .builder {
+      grid-template-columns: 1.4fr 1fr;
+      align-items: start;
+    }
+  }
+</style>

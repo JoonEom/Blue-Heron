@@ -1,0 +1,134 @@
+---
+interface Props {
+  categories: { id: string; title: string }[];
+}
+
+const { categories } = Astro.props;
+---
+
+<nav class="catBar" aria-label="Menu sections" data-cat-bar>
+  <ul class="catBar__list">
+    {
+      categories.map((c) => (
+        <li>
+          <a class="catBar__link" href={`#${c.id}`} data-cat-link={c.id}>
+            {c.title}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>
+
+<script is:inline>
+  (function () {
+    var bar = document.querySelector('[data-cat-bar]');
+    if (!bar) return;
+
+    var links = Array.prototype.slice.call(
+      bar.querySelectorAll('[data-cat-link]')
+    );
+    if (!links.length) return;
+
+    var sections = links
+      .map(function (l) {
+        return document.getElementById(l.dataset.catLink);
+      })
+      .filter(Boolean);
+
+    var current = null;
+
+    function setActive(id) {
+      if (id === current) return;
+      current = id;
+      links.forEach(function (l) {
+        var on = l.dataset.catLink === id;
+        l.classList.toggle('is-active', on);
+        if (on) {
+          l.setAttribute('aria-current', 'true');
+          // Keep the active chip in view as the reader scrolls.
+          var barRect = bar.getBoundingClientRect();
+          var linkRect = l.getBoundingClientRect();
+          if (linkRect.left < barRect.left || linkRect.right > barRect.right) {
+            bar.scrollTo({
+              left: bar.scrollLeft + (linkRect.left - barRect.left) - 16,
+              behavior: 'smooth',
+            });
+          }
+        } else {
+          l.removeAttribute('aria-current');
+        }
+      });
+    }
+
+    // IntersectionObserver rather than a scroll handler: no work on the main
+    // thread except when a section boundary is actually crossed.
+    var observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) setActive(e.target.id);
+        });
+      },
+      {
+        // Trigger when a section reaches the band just under the sticky bar.
+        rootMargin: '-88px 0px -70% 0px',
+        threshold: 0,
+      }
+    );
+
+    sections.forEach(function (s) {
+      observer.observe(s);
+    });
+  })();
+</script>
+
+<style>
+  .catBar {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: var(--paper);
+    border-bottom: 1px solid var(--sand);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    /* Let it span the full viewport even inside a padded container. */
+    margin-inline: calc(50% - 50vw);
+    padding-inline: max(1.25rem, calc(50vw - var(--width-page) / 2));
+  }
+
+  .catBar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .catBar__list {
+    display: flex;
+    gap: var(--space-3xs);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: max-content;
+  }
+
+  .catBar__link {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+    padding-inline: var(--space-s);
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: var(--step--1);
+    font-weight: 600;
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+  }
+
+  .catBar__link:hover {
+    color: var(--navy);
+  }
+
+  .catBar__link.is-active {
+    color: var(--navy);
+    border-bottom-color: var(--oak);
+  }
+</style>

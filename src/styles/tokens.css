@@ -1,0 +1,94 @@
+/* ============================================================
+   Blue Heron — design tokens
+   Single source of truth. Change a value here, it changes
+   everywhere. Nothing else in the codebase hardcodes a color.
+   ============================================================ */
+
+:root {
+  /* --- Color ------------------------------------------------
+     Pulled from the actual storefront and interior photos.
+     Every text pair below is verified WCAG AA (>= 4.5:1).
+     Ratios noted against --cream, the default page background. */
+
+  --navy: #17335a;        /* 11.16:1 — headings, nav bar, primary */
+  --navy-deep: #0e2340;   /* 13.88:1 — hover/pressed states */
+  --navy-tint: #e7ecf3;   /* decorative wash only */
+
+  --cream: #f7f0e1;       /* page background — warm paper, not white */
+  --paper: #fffbf2;       /* raised surfaces: cards, sticky bars */
+  --sand: #ede3ce;        /* recessed surfaces, table stripes */
+
+  --ink: #3a3128;         /* 11.22:1 — body text */
+  --ink-soft: #5c5145;    /*  6.81:1 — secondary text, captions */
+
+  /* TEXT-SAFE on every light surface: 5.71:1 on cream, 5.09:1 on sand,
+     6.28:1 on paper. Tuned against --sand specifically, because the
+     eyebrow labels sit on the sand-tinted hero gradient, where a lighter
+     oak dropped to 4.3:1 and failed. */
+  --oak-deep: #7a5733;
+  --oak-light: #c09468;   /*  4.63:1 on navy  — TEXT-SAFE on navy surfaces.
+                             The plain --oak below only reaches 3.55:1 on
+                             navy, so accent text on a navy panel must use
+                             this one. */
+
+  /* DECORATIVE ONLY — both fail AA for text. Never use for type.
+     Rules, borders, icon fills, and background washes only. */
+  --oak: #b07d4a;         /*  3.15:1 — warm rules, borders, dividers */
+  --mist: #7d9aa8;        /*  2.62:1 — quiet fills, muted illustration */
+
+  --focus: #b8541f;       /* focus ring — deliberately off-palette so it
+                             never blends into a navy or oak surface */
+
+  /* --- Type -------------------------------------------------
+     Fraunces = warm, slightly wobbly serif for display.
+     Public Sans = clean neutral sans for body and UI.
+     Both self-hosted; no external font requests. */
+
+  --font-display: 'Fraunces Variable', 'Iowan Old Style', Georgia, serif;
+  --font-body: 'Public Sans Variable', system-ui, -apple-system, 'Segoe UI',
+    sans-serif;
+
+  /* Fluid type scale. clamp() means no layout-shifting breakpoint
+     jumps, and it still respects the user's browser font size
+     because everything is rem-based. */
+  --step--1: clamp(0.83rem, 0.79rem + 0.19vw, 0.94rem);
+  --step-0: clamp(1rem, 0.95rem + 0.24vw, 1.13rem);
+  --step-1: clamp(1.2rem, 1.13rem + 0.36vw, 1.41rem);
+  --step-2: clamp(1.44rem, 1.34rem + 0.52vw, 1.76rem);
+  --step-3: clamp(1.73rem, 1.58rem + 0.74vw, 2.2rem);
+  --step-4: clamp(2.07rem, 1.86rem + 1.05vw, 2.75rem);
+  --step-5: clamp(2.49rem, 2.18rem + 1.47vw, 3.43rem);
+  --step-6: clamp(2.99rem, 2.56rem + 2.03vw, 4.29rem);
+
+  /* --- Space ------------------------------------------------
+     One ratio-based scale so spacing stays consistent. */
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-s: 1rem;
+  --space-m: 1.5rem;
+  --space-l: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+  --space-4xl: 8rem;
+
+  /* --- Layout ----------------------------------------------- */
+  --measure: 68ch;          /* max comfortable reading width */
+  --width-page: 72rem;
+  --width-narrow: 46rem;
+
+  --radius-s: 4px;
+  --radius-m: 8px;
+  --radius-l: 16px;
+
+  --shadow-s: 0 1px 2px rgb(58 49 40 / 0.06),
+    0 2px 6px rgb(58 49 40 / 0.05);
+  --shadow-m: 0 2px 4px rgb(58 49 40 / 0.06),
+    0 8px 20px rgb(58 49 40 / 0.08);
+  --shadow-l: 0 4px 10px rgb(58 49 40 / 0.08),
+    0 18px 40px rgb(58 49 40 / 0.12);
+
+  /* Minimum tap target. Apple and WCAG 2.2 both land near 44px. */
+  --tap: 44px;
+}
