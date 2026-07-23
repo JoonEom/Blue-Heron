@@ -36,7 +36,7 @@
       image: power-breakfast.jpg
       prices:
         - amount: 10.99
-      ingredients: Multigrain roll with egg, avocado, turkey, tomato, swiss cheese, and spinach
+      ingredients: Multigrain roll with egg, avocado, turkey, tomato, Swiss cheese, and spinach
     - name: Bagel Breakfast Sandwich
       image: bagel-breakfast-sandwich.jpeg
       prices:
@@ -85,7 +85,7 @@
           amount: 12.99
         - label: 12"
           amount: 17.99
-      ingredients: French roll, hot ham, turkey, bacon bits, swiss cheese, grilled onion, green & red peppers, and mayo
+      ingredients: French roll, hot ham, turkey, bacon bits, Swiss cheese, grilled onion, green & red peppers, and mayo
     - name: French Dip with Au Jus & Swiss
       image: french-dip.jpg
       prices:
@@ -93,7 +93,7 @@
           amount: 12.99
         - label: 12"
           amount: 17.99
-      ingredients: Beef and swiss cheese with au jus
+      ingredients: Beef and Swiss cheese with au jus
     - name: Portabella Bliss
       image: portabella-bliss.jpg
       vegetarian: true
@@ -102,7 +102,7 @@
           amount: 12.99
         - label: 12"
           amount: 17.99
-      ingredients: Portabella mushrooms, grilled onion, swiss cheese, green & red peppers, mayo and avocado
+      ingredients: Portabella mushrooms, grilled onion, Swiss cheese, green & red peppers, mayo and avocado
 
 - id: hot-sandwiches-bread
   order: 40
@@ -118,7 +118,7 @@
           amount: 17.99
         - label: On bread
           amount: 12.99
-      ingredients: Pastrami, sauerkraut, thousand island, dijon, swiss cheese on light rye
+      ingredients: Pastrami, sauerkraut, Thousand Island, Dijon, Swiss cheese on light rye
     - name: Hot Ham & Swiss
       image: hot-ham-swiss.jpg
       prices:
@@ -128,7 +128,7 @@
           amount: 17.99
         - label: On bread
           amount: 12.99
-      ingredients: Hot ham and swiss cheese
+      ingredients: Hot ham and Swiss cheese
     - name: Grilled Cheese
       image: grilled-cheese.jpg
       vegetarian: true
@@ -158,7 +158,7 @@
           amount: 17.99
         - label: On bread
           amount: 12.99
-      ingredients: Turkey, bacon, swiss cheese, avocado, and mayo
+      ingredients: Turkey, bacon, Swiss cheese, avocado, and mayo
     - name: Tuna Melt
       image: tuna-melt.jpg
       prices:
@@ -181,9 +181,9 @@
     - label: Meat
       options: Roast beef, pastrami, turkey, ham, tuna
     - label: Cheese
-      options: American, swiss, provolone, cheddar, pepper jack
+      options: American, Swiss, provolone, cheddar, pepper jack
     - label: Spread
-      options: Mayo, mustard, dijon, thousand island, sauerkraut
+      options: Mayo, mustard, Dijon, Thousand Island, sauerkraut
     - label: Veggies
       options: Lettuce, tomato, onion, pickle, jalapeño
 
@@ -196,7 +196,7 @@
       vegetarian: true
       prices:
         - amount: 12.99
-      ingredients: Lettuce, tomato, onion, cucumber, avocado, olive, mayo, cream cheese, and swiss & cheddar cheese
+      ingredients: Lettuce, tomato, onion, cucumber, avocado, olive, mayo, cream cheese, and Swiss & cheddar cheese
     - name: Club Sub
       image: club-sub.jpeg
       prices:
@@ -213,7 +213,7 @@
       image: heron-chicken-wrap.jpeg
       prices:
         - amount: 12.99
-      ingredients: Whole wheat wrap or garden spinach herb wrap, chicken, lettuce, tomatoes, onions, cheese, green & red peppers, ranch, and thousand island
+      ingredients: Whole wheat wrap or garden spinach herb wrap, chicken, lettuce, tomatoes, onions, cheese, green & red peppers, ranch, and Thousand Island
 
 - id: lunch-special
   order: 70
@@ -226,16 +226,16 @@
       ingredients: Roast beef & Grande chili
     - name: Tuesday
       image: lunch-tuesday.jpg
-      ingredients: Egg salad & beef and barley soup
+      ingredients: Egg salad & Beef barley soup
     - name: Wednesday
       image: lunch-wednesday.jpeg
-      ingredients: Turkey & wonton
+      ingredients: Turkey & Wonton
     - name: Thursday
       image: lunch-thursday.jpeg
-      ingredients: Ham & chicken noodle
+      ingredients: Ham & Chicken noodle
     - name: Friday
       image: lunch-friday.jpeg
-      ingredients: Roast beef & clam chowder
+      ingredients: Roast beef & Clam chowder
 
 - id: salad
   order: 80
