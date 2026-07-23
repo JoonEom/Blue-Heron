@@ -193,10 +193,20 @@ const money = (n: number) =>
   }
 
   .item__variants {
+    /* The global reset strips list markers from every classed <ol>
+       (ol[class] { list-style: none }). These combos are meant to read as
+       "1, 2, 3", so restore decimal numbering here. The scoped selector
+       outranks the reset on specificity, so this wins. */
+    list-style: decimal;
     margin: var(--space-2xs) 0 0;
-    padding-inline-start: 1.2em;
+    padding-inline-start: 1.4em;
     font-size: var(--step--1);
     color: var(--ink-soft);
+  }
+
+  .item__variants li::marker {
+    color: var(--oak-deep);
+    font-weight: 600;
   }
 
   .item__variants li {

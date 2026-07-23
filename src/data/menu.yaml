@@ -30,36 +30,36 @@
 - id: breakfast
   order: 20
   title: Breakfast
-  blurb: Served from 7 AM.
+  blurb: Served 7 AM – 11 AM.
   items:
     - name: Power Breakfast Special
       image: power-breakfast.jpg
       prices:
-        - amount: 8.99
+        - amount: 10.99
       ingredients: Multigrain roll with egg, avocado, turkey, tomato, swiss cheese, and spinach
-    - name: "Breakfast Sandwich #1"
+    - name: Bagel Breakfast Sandwich
       image: bagel-breakfast-sandwich.jpeg
       prices:
-        - amount: 7.99
-      ingredients: Bagel with sausage, bacon, or ham, plus egg and cheese
-    - name: "Breakfast Sandwich #2"
+        - amount: 8.99
+      ingredients: Sausage, bacon, or ham, plus egg and cheese
+    - name: English Muffin Breakfast Sandwich
       image: english-muffin-breakfast-sandwich.jpeg
       prices:
-        - amount: 7.99
-      ingredients: English muffin with sausage, bacon, or ham, plus egg and cheese
-    - name: "Breakfast Sandwich #3"
+        - amount: 8.99
+      ingredients: Sausage, bacon, or ham, plus egg and cheese
+    - name: Croissant Breakfast Sandwich
       image: croissant-breakfast-sandwich.jpg
       prices:
-        - amount: 7.99
-      ingredients: Croissant with sausage, bacon, or ham, plus egg and cheese
+        - amount: 8.99
+      ingredients: Sausage, bacon, or ham, plus egg and cheese
     - name: Bagel with Cream Cheese
       image: bagel-cream-cheese.webp
       prices:
-        - amount: 3.49
+        - amount: 3.99
     - name: Side Order
       image: side-order.jpg
       prices:
-        - amount: 1.50
+        - amount: 1.99
       ingredients: Toast, hash brown, egg, bacon, or avocado
 
 - id: hot-sandwiches
@@ -72,9 +72,9 @@
       featured: true
       prices:
         - label: 6"
-          amount: 11.99
+          amount: 12.99
         - label: 12"
-          amount: 16.99
+          amount: 17.99
       ingredients: French roll, beef or chicken, grilled onion, green & red peppers, cheese, lettuce, tomato, and mayo
     - name: Bada Bing Supreme
       image: bada-bing.jpg
@@ -82,26 +82,26 @@
       press: true
       prices:
         - label: 6"
-          amount: 11.99
+          amount: 12.99
         - label: 12"
-          amount: 16.99
+          amount: 17.99
       ingredients: French roll, hot ham, turkey, bacon bits, swiss cheese, grilled onion, green & red peppers, and mayo
     - name: French Dip with Au Jus & Swiss
       image: french-dip.jpg
       prices:
         - label: 6"
-          amount: 11.99
+          amount: 12.99
         - label: 12"
-          amount: 16.99
+          amount: 17.99
       ingredients: Beef and swiss cheese with au jus
     - name: Portabella Bliss
       image: portabella-bliss.jpg
       vegetarian: true
       prices:
         - label: 6"
-          amount: 11.99
+          amount: 12.99
         - label: 12"
-          amount: 16.99
+          amount: 17.99
       ingredients: Portabella mushrooms, grilled onion, swiss cheese, green & red peppers, mayo and avocado
 
 - id: hot-sandwiches-bread
@@ -113,67 +113,67 @@
       image: pastrami-reuben.jpg
       prices:
         - label: 6" roll
-          amount: 11.99
+          amount: 12.99
         - label: 12" roll
-          amount: 16.99
+          amount: 17.99
         - label: On bread
-          amount: 11.99
+          amount: 12.99
       ingredients: Pastrami, sauerkraut, thousand island, dijon, swiss cheese on light rye
     - name: Hot Ham & Swiss
       image: hot-ham-swiss.jpg
       prices:
         - label: 6" roll
-          amount: 11.99
+          amount: 12.99
         - label: 12" roll
-          amount: 16.99
+          amount: 17.99
         - label: On bread
-          amount: 11.99
+          amount: 12.99
       ingredients: Hot ham and swiss cheese
     - name: Grilled Cheese
       image: grilled-cheese.jpg
       vegetarian: true
       prices:
         - label: 6" roll
-          amount: 11.99
+          amount: 12.99
         - label: 12" roll
-          amount: 16.99
+          amount: 17.99
         - label: On bread
-          amount: 11.99
+          amount: 12.99
     - name: B.L.T.A.
       image: blta.jpg
       prices:
         - label: 6" roll
-          amount: 11.99
+          amount: 12.99
         - label: 12" roll
-          amount: 16.99
+          amount: 17.99
         - label: On bread
-          amount: 11.99
+          amount: 12.99
       ingredients: Bacon, lettuce, tomato, avocado, and mayo
     - name: T.B.A.S.
       image: tbas.jpg
       prices:
         - label: 6" roll
-          amount: 11.99
+          amount: 12.99
         - label: 12" roll
-          amount: 16.99
+          amount: 17.99
         - label: On bread
-          amount: 11.99
+          amount: 12.99
       ingredients: Turkey, bacon, swiss cheese, avocado, and mayo
     - name: Tuna Melt
       image: tuna-melt.jpg
       prices:
         - label: 6" roll
-          amount: 11.99
+          amount: 12.99
         - label: 12" roll
-          amount: 16.99
+          amount: 17.99
         - label: On bread
-          amount: 11.99
+          amount: 12.99
       ingredients: Grilled tuna, mayo, and cheddar cheese
 
 - id: make-your-own
   order: 50
   title: Make Your Own Cold Sandwich
-  note: Half $7.99 · Whole $11.99 · French roll 6" $11.99 / 12" $16.99
+  note: Half $7.99 · Whole $12.99 · French roll 6" $12.99 / 12" $17.99
   image: bread.jpeg
   builder:
     - label: Bread
@@ -190,24 +190,20 @@
 - id: specialty-cold
   order: 60
   title: Specialty Cold Sandwiches
-  note: Half $7.99 · Whole $11.99
   items:
     - name: Vegetarian
       image: vegetarian.jpg
       vegetarian: true
       prices:
-        - label: Half
-          amount: 7.99
-        - label: Whole
-          amount: 11.99
+        - amount: 12.99
       ingredients: Lettuce, tomato, onion, cucumber, avocado, olive, mayo, cream cheese, and swiss & cheddar cheese
     - name: Club Sub
       image: club-sub.jpeg
       prices:
-        - label: Half
-          amount: 7.99
-        - label: Whole
-          amount: 11.99
+        - label: 6"
+          amount: 12.99
+        - label: 12"
+          amount: 17.99
       ingredients: Lettuce, tomato, onion, cheese, mustard, mayo
       variants:
         - Ham & turkey
@@ -216,24 +212,21 @@
     - name: Heron Chicken Wrap
       image: heron-chicken-wrap.jpeg
       prices:
-        - label: Half
-          amount: 7.99
-        - label: Whole
-          amount: 11.99
+        - amount: 12.99
       ingredients: Whole wheat wrap or garden spinach herb wrap, chicken, lettuce, tomatoes, onions, cheese, green & red peppers, ranch, and thousand island
 
 - id: lunch-special
   order: 70
   title: Daily Lunch Special
-  note: Half-sized cold sandwich (wheat, rye, sourdough) with a cup of soup — $12.99
+  note: Half-sized cold sandwich (wheat, rye, sourdough) with a cup of soup — $13.99
   blurb: A different pairing every weekday.
   items:
     - name: Monday
       image: lunch-monday.jpg
       ingredients: Roast beef & Grande chili
     - name: Tuesday
-      image: lunch-tuesday.jpeg
-      ingredients: Chicken coconut curry soup
+      image: soup-bowl.jpeg
+      ingredients: Egg salad & beef and barley soup
     - name: Wednesday
       image: lunch-wednesday.jpeg
       ingredients: Turkey & wonton
@@ -252,12 +245,12 @@
       image: garden-salad.jpeg
       vegetarian: true
       prices:
-        - amount: 11.99
+        - amount: 12.99
       ingredients: Lettuce, tomato, cucumber, onion, green pepper, cheese, and olive
     - name: Chef's Salad
       image: chefs-salad.jpeg
       prices:
-        - amount: 14.99
+        - amount: 16.99
       ingredients: Garden salad with chicken or ham or turkey
 
 - id: soup
@@ -267,14 +260,13 @@
     - name: Cup
       image: soup-cup.jpeg
       prices:
-        - amount: 5.99
+        - amount: 6.99
     - name: Bowl
       image: soup-bowl.jpeg
       prices:
-        - amount: 7.99
+        - amount: 8.99
 
 - id: drinks
   order: 100
   title: Drinks & Coffee
-  blurb: Espresso, drip, and a full case of cold drinks.
-  image: drinks.jpg
+  blurb: Espresso, drip, and a full case of cold drinks. Come see the board in person for the full list.
